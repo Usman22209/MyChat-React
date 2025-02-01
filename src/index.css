@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bg: #ffffff;
+  --color-text: #1a202c;
+}
+
+@layer base {
+  [data-theme="dark"] {
+    --color-bg: #1a202c;
+    --color-text: #ffffff;
+  }
+}
