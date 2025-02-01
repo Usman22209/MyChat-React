@@ -28,7 +28,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   padding = "p-4 md:p-6",
   centered = true,
 }) => {
-  const { theme, toggleTheme } = useTheme(); 
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div
@@ -39,7 +39,6 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
           centered ? "flex flex-col items-center" : ""
         } ${className}`}
       >
-   
         {children}
       </div>
     </div>
