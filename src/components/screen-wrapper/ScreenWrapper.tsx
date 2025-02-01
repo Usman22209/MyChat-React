@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useTheme } from "@providers/theme-provider/ThemeProvider"; // Import the theme context
 
 interface ScreenWrapperProps {
   children: React.ReactNode;
@@ -27,29 +28,18 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   padding = "p-4 md:p-6",
   centered = true,
 }) => {
-  const [theme, setTheme] = useState<"light" | "dark">(
-    (localStorage.getItem("theme") as "light" | "dark") || "light"
-  );
-
-  // Apply theme on mount and when toggled
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const { theme, toggleTheme } = useTheme(); 
 
   return (
-    <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
+    <div
+      className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-black"}`}
+    >
       <div
         className={`w-full mx-auto ${padding} ${getMaxWidthClass(maxWidth)} ${
           centered ? "flex flex-col items-center" : ""
         } ${className}`}
       >
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="mb-4 px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-md"
-        >
-          Toggle Theme
-        </button>
+   
         {children}
       </div>
     </div>

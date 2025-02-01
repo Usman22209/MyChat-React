@@ -9,7 +9,8 @@
       "@pages/*": ["pages/*"],
       "@routes/*": ["routes/*"],
       "@layouts/*": ["layouts/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@providers/*": ["providers/*"]
     }
   }
 }
