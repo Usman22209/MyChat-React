@@ -28,7 +28,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   padding = "p-4 md:p-6",
   centered = true,
 }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div
