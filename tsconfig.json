@@ -10,7 +10,8 @@
       "@routes/*": ["routes/*"],
       "@layouts/*": ["layouts/*"],
       "@utils/*": ["utils/*"],
-      "@providers/*": ["providers/*"]
+      "@providers/*": ["providers/*"],
+      "@assets/*": ["assets/*"]
     }
   }
 }

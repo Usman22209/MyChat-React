@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X, MessageSquare, Bell, Settings, Search } from "lucide-react";
-import { UserButton } from "@clerk/clerk-react";
+// import { UserButton } from "@clerk/clerk-react";
 
 const MainNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,25 +35,25 @@ const MainNavbar = () => {
             </button>
 
             <div className="flex items-center ml-4">
-              <UserButton
+              {/* <UserButton
                 appearance={{
                   elements: {
                     avatarBox: "w-12 h-12 border-2 border-white rounded-full",
                   },
                 }}
-              />
+              /> */}
             </div>
           </div>
 
           {/* Mobile header right section */}
           <div className="md:hidden flex items-center space-x-3">
-            <UserButton
+            {/* <UserButton
               appearance={{
                 elements: {
                   avatarBox: "w-8 h-8 border-2 border-white rounded-full",
                 },
               }}
-            />
+            /> */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"

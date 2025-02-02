@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Menu, X, MessageSquare, Shield, Users, Globe, PhoneCall } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const validRoutes = ["/landing", "/security", "/contact", "/about", "/signin", "/signup"];
@@ -21,13 +23,13 @@ const AuthNavbar: React.FC = () => {
     <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo on the left */}
+          {/* Logo */}
           <button onClick={() => handleNavigation("/landing")} className="flex items-center">
             <MessageSquare className="h-8 w-8 text-white" />
             <span className="ml-2 text-white font-bold text-xl">MyChat</span>
           </button>
 
-          {/* Desktop Menu (aligned to right) */}
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 ml-auto">
             <button
               onClick={() => handleNavigation("/security")}
@@ -50,10 +52,7 @@ const AuthNavbar: React.FC = () => {
               <Globe className="h-5 w-5" />
               <span>About</span>
             </button>
-            <button
-              onClick={() => handleNavigation("/signin")}
-              className="text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-colors"
-            >
+            <button className="text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">
               Log in
             </button>
             <button
@@ -64,7 +63,7 @@ const AuthNavbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button (on the right) */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden ml-auto">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -75,47 +74,57 @@ const AuthNavbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu (Dropdown) */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2">
-            <button
-              onClick={() => handleNavigation("/security")}
-              className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+        {/* Mobile Dropdown with Animation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="md:hidden overflow-hidden"
             >
-              <Shield className="h-5 w-5" />
-              <span>Security</span>
-            </button>
-            <button
-              onClick={() => handleNavigation("/contact")}
-              className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-            >
-              <PhoneCall className="h-5 w-5" />
-              <span>Contact</span>
-            </button>
-            <button
-              onClick={() => handleNavigation("/about")}
-              className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-            >
-              <Globe className="h-5 w-5" />
-              <span>About</span>
-            </button>
+              <div className="pb-4 space-y-2">
+                <button
+                  onClick={() => handleNavigation("/security")}
+                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+                >
+                  <Shield className="h-5 w-5" />
+                  <span>Security</span>
+                </button>
+                <button
+                  onClick={() => handleNavigation("/contact")}
+                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+                >
+                  <PhoneCall className="h-5 w-5" />
+                  <span>Contact</span>
+                </button>
+                <button
+                  onClick={() => handleNavigation("/about")}
+                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+                >
+                  <Globe className="h-5 w-5" />
+                  <span>About</span>
+                </button>
 
-            <div className="pt-2 space-y-2">
-              <button
-                onClick={() => handleNavigation("/signin")}
-                className="w-full text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-              >
-                Log in
-              </button>
-              <button
-                onClick={() => handleNavigation("/signup")}
-                className="w-full bg-white text-indigo-600 hover:bg-white/90 px-3 py-2 rounded-lg font-medium transition-colors"
-              >
-                Sign up
-              </button>
-            </div>
-          </div>
-        )}
+                <div className="pt-2 space-y-2">
+                  <button
+                    onClick={() => handleNavigation("/signin")}
+                    className="w-full text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+                  >
+                    Log in
+                  </button>
+                  <button
+                    onClick={() => handleNavigation("/signup")}
+                    className="w-full bg-white text-indigo-600 hover:bg-white/90 px-3 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    Sign up
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
