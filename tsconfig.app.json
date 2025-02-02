@@ -9,7 +9,11 @@
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
       "@providers/*": ["src/providers/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@configs/*": ["src/configs/*"],
+      "@types/*": ["src/types/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@services/*": ["src/services/*"]
     },
     "target": "ESNext",
     "module": "ESNext",

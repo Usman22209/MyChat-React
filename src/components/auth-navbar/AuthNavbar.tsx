@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, X, MessageSquare, Shield, Users, Globe, PhoneCall } from "lucide-react";
+import { Menu, X, MessageSquare, Shield, Globe, PhoneCall } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
