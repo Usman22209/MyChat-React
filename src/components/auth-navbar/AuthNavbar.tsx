@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Menu, X, MessageSquare, Shield, Globe, PhoneCall } from "lucide-react";
+import { Menu, X, MessageSquare, Shield, Globe, PhoneCall, Sun, Moon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@providers/theme-provider/ThemeProvider";
 
 const AuthNavbar: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-
   const navigate = useNavigate();
 
-  const validRoutes = ["/landing", "/security", "/contact", "/about", "/signin", "/signup"];
+  const validRoutes = ["/landing", "/security", "/contact", "/about", "/login", "/signup"];
 
   const handleNavigation = (url: string) => {
     if (validRoutes.includes(url)) {
@@ -20,7 +21,7 @@ const AuthNavbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
+    <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg sticky top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -52,7 +53,20 @@ const AuthNavbar: React.FC = () => {
               <Globe className="h-5 w-5" />
               <span>About</span>
             </button>
-            <button className="text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-colors">
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="text-white/90 hover:text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+
+            <button
+              onClick={() => handleNavigation("/login")}
+              className="text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-colors"
+            >
               Log in
             </button>
             <button
@@ -63,8 +77,15 @@ const AuthNavbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden ml-auto">
+          {/* Mobile Menu Button and Theme Toggle */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={toggleTheme}
+              className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"

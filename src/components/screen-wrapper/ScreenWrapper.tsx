@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
 import AuthNavbar from "@components/auth-navbar";
 import MainNavbar from "@components/main-navbar";
-
+import { useAuth } from "@providers/auth-provider/AuthProvider";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -31,15 +31,12 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   centered = true,
 }) => {
   const { theme } = useTheme();
-  const isLoaded = true;
-  const isSignedIn = false;
+
+  const { loading, isLoggedIn } = useAuth();
 
   return (
-    <div
-      className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-50 text-black"}`}
-    >
-      {/* Show Navbars Only When Clerk is Loaded */}
-      {isLoaded ? isSignedIn ? <MainNavbar /> : <AuthNavbar /> : null}
+    <div className={`min-h-screen bg-bg-secondary transition-colors duration-300`}>
+      {!loading ? isLoggedIn ? <MainNavbar /> : <AuthNavbar /> : null}
 
       <div
         className={`w-full mx-auto ${padding} ${getMaxWidthClass(maxWidth)} ${
