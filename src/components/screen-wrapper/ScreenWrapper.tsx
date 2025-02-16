@@ -1,5 +1,4 @@
 import React from "react";
-import { useTheme } from "@providers/theme-provider/ThemeProvider";
 import AuthNavbar from "@components/auth-navbar";
 import MainNavbar from "@components/main-navbar";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
@@ -31,8 +30,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   padding = "p-4 md:p-6",
   centered = true,
 }) => {
-  const { theme } = useTheme();
-
+ 
   const { loading, isLoggedIn } = useAuth();
 
   return (

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import ScreenWrapper from "@components/screen-wrapper";
-import { Mail, Lock, AlertCircle, Eye, EyeOff, User } from "lucide-react";
+import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 const Signup: React.FC = () => {
   const { signUp } = useAuth();
@@ -27,8 +27,8 @@ const Signup: React.FC = () => {
       try {
         await signUp(values.email, values.password);
         console.log("Signup successful");
-      } catch (error) {
-        setErrors({ email: "Email already exists" });
+      } catch (error: unknown) {
+        setErrors({ email: error as string });
       }
       setSubmitting(false);
     },

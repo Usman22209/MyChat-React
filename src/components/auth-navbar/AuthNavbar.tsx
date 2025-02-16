@@ -47,7 +47,7 @@ const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const validRoutes = ["/landing", "/security", "/contact", "/about", "/login", "/signup"];
+  const validRoutes = ["/", "/security", "/contact", "/about", "/login", "/signup"];
 
   const handleNavigation = (url: string) => {
     if (validRoutes.includes(url)) {
@@ -59,12 +59,12 @@ const AuthNavbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <nav className="bg-white py-3 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <button
-            onClick={() => handleNavigation("/landing")}
+            onClick={() => handleNavigation("/")}
             className="flex items-center space-x-2 focus:outline-none"
           >
             <MessageSquare className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />

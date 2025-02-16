@@ -5,7 +5,7 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import ScreenWrapper from "@components/screen-wrapper";
 import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Checkbox from "rc-checkbox"; // Import rc-checkbox
-import "rc-checkbox/assets/index.css"; 
+import "rc-checkbox/assets/index.css";
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -24,8 +24,8 @@ const Login: React.FC = () => {
       try {
         await login(values.email, values.password);
         console.log("Login successful");
-      } catch (error) {
-        setErrors({ email: "Invalid credentials" });
+      } catch (error: unknown) {
+        setErrors({ email: error as string });
       }
       setSubmitting(false);
     },
