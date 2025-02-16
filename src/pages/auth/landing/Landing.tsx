@@ -1,17 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Zap, Globe, Users, Lock, Sparkles, ArrowRight } from "lucide-react";
 import Typed from "typed.js";
 import ScreenWrapper from "@components/screen-wrapper";
-import { landingPlaceholder } from "@assets/img";
+import { landingPlaceholder, logo1, logo2, logo3, logo4 } from "@assets/img";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import { SkeletonLoader } from "@components/SkeletonLoader";
 interface FeatureCardProps {
   icon: React.ElementType;
   title: string;
   description: string;
 }
+const skeletonImage =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9ImdyYXkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMiIgZmlsbD0iI2UyZTJlMiIvPjwvc3ZnPg==";
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => (
-  <div className="p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+  <div className="p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
     <div className="rounded-full bg-indigo-50 dark:bg-indigo-900/30 w-12 h-12 flex items-center justify-center mb-6">
       <Icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
     </div>
@@ -148,39 +153,54 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-16">Trusted by millions worldwide</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center">
-            {[1, 2, 3, 4].map((_, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-lg p-6 rounded-xl transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]"
-              >
-                <img
-                  src={`/logo${index + 1}.jpg`}
-                  alt={`Company ${index + 1}`}
-                  className="w-full h-12 object-contain filter brightness-0 invert opacity-70"
-                />
-              </div>
-            ))}
+            {[logo1, logo2, logo3, logo4].map((image, index) => {
+              const [loading, setLoading] = useState(true);
+
+              return (
+                <div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-lg p-6 rounded-xl flex items-center justify-center min-h-[220px] 
+                  hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 cursor-pointer"
+                >
+                  {loading && <SkeletonLoader width={220} height={200} />}
+                  <LazyLoadImage
+                    src={image}
+                    alt={`Company ${index + 1}`}
+                    effect="blur"
+                    onLoad={() => setLoading(false)}
+                    onError={() => setLoading(false)}
+                    className={`w-full object-contain opacity-90 ${loading ? "hidden" : "block"}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-24 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto text-center">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl transform -rotate-1 blur-xl opacity-20"></div>
-            <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-3xl p-12 shadow-2xl">
-              <h2 className="text-4xl font-bold mb-6">Start chatting today</h2>
-              <p className="text-xl mb-8 text-indigo-100 max-w-2xl">
+            {/* Glowing Background Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur-2xl opacity-30"></div>
+
+            {/* CTA Content */}
+            <div className="relative bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl p-12 shadow-2xl">
+              <h2 className="text-4xl font-bold mb-6 leading-snug">Start chatting with ease</h2>
+              <p className="text-lg text-indigo-200 max-w-3xl mx-auto mb-8">
                 Join millions of users who trust our platform for their communication needs. Get
-                started for free and experience the difference.
+                started for free and experience the difference today.
               </p>
-              <button
-                onClick={() => navigate("/signup")}
-                className="bg-white text-indigo-600 px-8 py-4 rounded-xl font-medium hover:bg-indigo-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 inline-flex items-center gap-2"
-              >
-                Get Started Free <ArrowRight className="h-5 w-5" />
-              </button>
+
+              {/* CTA Button */}
+              <div className="flex justify-center">
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="bg-white text-indigo-700 px-8 py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-lg cursor-pointer"
+                >
+                  Get Started Free <ArrowRight className="h-6 w-6" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

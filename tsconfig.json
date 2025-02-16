@@ -15,7 +15,8 @@
       "@types/*": ["types/*"],
       "@configs": ["configs/*"],
       "@hooks/*": ["hooks/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@styles/*": ["styles/*"]
     }
   }
 }

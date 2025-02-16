@@ -13,7 +13,8 @@
       "@configs/*": ["src/configs/*"],
       "@types/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@styles/*": ["src/styles/*"]
     },
     "target": "ESNext",
     "module": "ESNext",

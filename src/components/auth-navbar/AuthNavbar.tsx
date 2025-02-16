@@ -60,12 +60,12 @@ const AuthNavbar: React.FC = () => {
 
   return (
     <nav className="bg-white py-3 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <button
             onClick={() => handleNavigation("/")}
-            className="flex items-center space-x-2 focus:outline-none"
+            className="flex items-center space-x-2 focus:outline-none cursor-pointer"
           >
             <MessageSquare className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
             <span className="text-gray-900 dark:text-white font-bold text-xl">MyChat</span>

@@ -2,7 +2,7 @@ import React from "react";
 import AuthNavbar from "@components/auth-navbar";
 import MainNavbar from "@components/main-navbar";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
-
+import Footer from "@components/footer";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -30,7 +30,6 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   padding = "p-4 md:p-6",
   centered = true,
 }) => {
- 
   const { loading, isLoggedIn } = useAuth();
 
   return (
@@ -46,6 +45,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
       >
         {children}
       </div>
+      <Footer />
     </div>
   );
 };
