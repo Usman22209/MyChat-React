@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, X, MessageSquare, Bell, Settings, Search } from "lucide-react";
 // import { UserButton } from "@clerk/clerk-react";
+import { logout } from "@services/auth.services";
 
 const MainNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,10 @@ const MainNavbar = () => {
               <Bell className="h-6 w-6" />
             </button>
 
-            <button className="text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors">
+            <button
+              onClick={logout}
+              className="text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+            >
               <Settings className="h-6 w-6" />
             </button>
 

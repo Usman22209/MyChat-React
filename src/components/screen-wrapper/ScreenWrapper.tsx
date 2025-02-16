@@ -3,6 +3,7 @@ import { useTheme } from "@providers/theme-provider/ThemeProvider";
 import AuthNavbar from "@components/auth-navbar";
 import MainNavbar from "@components/main-navbar";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
+
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -35,7 +36,9 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   const { loading, isLoggedIn } = useAuth();
 
   return (
-    <div className={`min-h-screen bg-bg-secondary transition-colors duration-300`}>
+    <div
+      className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 transition-all duration- z-10`}
+    >
       {!loading ? isLoggedIn ? <MainNavbar /> : <AuthNavbar /> : null}
 
       <div

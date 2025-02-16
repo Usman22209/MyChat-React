@@ -1,49 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --bg-accent: #eef2ff;
+  --color-light: #f9fafb;
+  --color-text-light: #333333;
+  --color-btn-light: #3b82f6;
+  --color-input-bg-light: #e5e7eb;
+  --color-border-light: #d1d5db;
 
-  --text-primary: #1a202c;
-  --text-secondary: #4b5563;
-  --text-accent: #6366f1;
-
-  --border-primary: #e5e7eb;
-  --border-secondary: #d1d5db;
-
-  --button-primary: #6366f1;
-  --button-hover: #4f46e5;
-
-  --input-bg: #ffffff;
-  --input-border: #d1d5db;
-
-  --error: #ef4444;
-  --success: #10b981;
+  /* Dark colors*/
+  --color-dark: #121212;
+  --color-text-dark: #f9fafb;
+  --color-btn-dark: #2563eb;
+  --color-input-bg-dark: #4b5563;
+  --color-border-dark: #6b7280;
+  --color-card: #1e1e1e;
 }
 
-@layer base {
-  [data-theme="dark"] {
-    --bg-primary: #1a202c;
-    --bg-secondary: #2d3748;
-    --bg-accent: #312e81;
-
-    --text-primary: #ffffff;
-    --text-secondary: #e2e8f0;
-    --text-accent: #818cf8;
-
-    --border-primary: #4b5563;
-    --border-secondary: #374151;
-
-    --button-primary: #818cf8;
-    --button-hover: #6366f1;
-
-    --input-bg: #2d3748;
-    --input-border: #4b5563;
-
-    --error: #f87171;
-    --success: #34d399;
-  }
+@custom-variant dark (&:where(.dark, .dark *));
+input[type="password"]::-ms-reveal,
+input[type="password"]::-webkit-reveal {
+  display: none;
 }
-
-
