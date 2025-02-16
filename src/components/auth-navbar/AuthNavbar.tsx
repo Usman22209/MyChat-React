@@ -4,14 +4,40 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
 
-const AuthNavbar: React.FC = () => {
+// Custom Toggle Switch Component
+const ToggleSwitch = ({ checked, onChange }) => (
+  <div
+    onClick={onChange}
+    className={`relative w-12 h-6 rounded-full cursor-pointer transition-colors duration-200 ease-in-out ${
+      checked ? "bg-indigo-600" : "bg-gray-200 dark:bg-gray-700"
+    }`}
+  >
+    <div
+      className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform duration-200 ease-in-out ${
+        checked ? "transform translate-x-6" : "transform translate-x-0"
+      }`}
+    />
+  </div>
+);
+
+const NavButton = ({ icon: Icon, text, onClick }) => (
+  <button
+    onClick={onClick}
+    className="flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
+  >
+    <Icon className="h-5 w-5" />
+    <span>{text}</span>
+  </button>
+);
+
+const AuthNavbar = () => {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const validRoutes = ["/landing", "/security", "/contact", "/about", "/login", "/signup"];
 
-  const handleNavigation = (url: string) => {
+  const handleNavigation = (url) => {
     if (validRoutes.includes(url)) {
       navigate(url);
       setIsOpen(false);
@@ -21,81 +47,68 @@ const AuthNavbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg sticky top-0">
+    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <button onClick={() => handleNavigation("/landing")} className="flex items-center">
-            <MessageSquare className="h-8 w-8 text-white" />
-            <span className="ml-2 text-white font-bold text-xl">MyChat</span>
+            <MessageSquare className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+            <span className="ml-2 text-gray-900 dark:text-white font-bold text-xl">MyChat</span>
           </button>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6 ml-auto">
-            <button
+          <div className="hidden md:flex items-center space-x-2">
+            <NavButton
+              icon={Shield}
+              text="Security"
               onClick={() => handleNavigation("/security")}
-              className="text-white/90 hover:text-white flex items-center space-x-2 hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-            >
-              <Shield className="h-5 w-5" />
-              <span>Security</span>
-            </button>
-            <button
+            />
+            <NavButton
+              icon={PhoneCall}
+              text="Contact"
               onClick={() => handleNavigation("/contact")}
-              className="text-white/90 hover:text-white flex items-center space-x-2 hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-            >
-              <PhoneCall className="h-5 w-5" />
-              <span>Contact</span>
-            </button>
-            <button
-              onClick={() => handleNavigation("/about")}
-              className="text-white/90 hover:text-white flex items-center space-x-2 hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-            >
-              <Globe className="h-5 w-5" />
-              <span>About</span>
-            </button>
+            />
+            <NavButton icon={Globe} text="About" onClick={() => handleNavigation("/about")} />
 
             {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="text-white/90 hover:text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
+            <div className="px-3 py-1 flex items-center space-x-2 border-l border-gray-200 dark:border-gray-700 ml-2">
+              <Sun className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <ToggleSwitch checked={theme === "dark"} onChange={toggleTheme} />
+              <Moon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </div>
 
+            {/* Auth Buttons */}
             <button
               onClick={() => handleNavigation("/login")}
-              className="text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-colors"
+              className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
             >
               Log in
             </button>
             <button
               onClick={() => handleNavigation("/signup")}
-              className="bg-white text-indigo-600 hover:bg-white/90 px-4 py-2 rounded-lg font-medium transition-colors"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200"
             >
               Sign up
             </button>
           </div>
 
-          {/* Mobile Menu Button and Theme Toggle */}
-          <div className="md:hidden flex items-center space-x-2">
-            <button
-              onClick={toggleTheme}
-              className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-4">
+            <div className="flex items-center space-x-2 border-r border-gray-200 dark:border-gray-700 pr-4">
+              <Sun className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <ToggleSwitch checked={theme === "dark"} onChange={toggleTheme} />
+              <Moon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
+              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown with Animation */}
+        {/* Mobile Menu with Animation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -103,41 +116,31 @@ const AuthNavbar: React.FC = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden"
+              className="md:hidden border-t border-gray-200 dark:border-gray-700 py-4"
             >
-              <div className="pb-4 space-y-2">
-                <button
+              <div className="flex flex-col space-y-2">
+                <NavButton
+                  icon={Shield}
+                  text="Security"
                   onClick={() => handleNavigation("/security")}
-                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-                >
-                  <Shield className="h-5 w-5" />
-                  <span>Security</span>
-                </button>
-                <button
+                />
+                <NavButton
+                  icon={PhoneCall}
+                  text="Contact"
                   onClick={() => handleNavigation("/contact")}
-                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-                >
-                  <PhoneCall className="h-5 w-5" />
-                  <span>Contact</span>
-                </button>
-                <button
-                  onClick={() => handleNavigation("/about")}
-                  className="w-full flex items-center space-x-2 text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
-                >
-                  <Globe className="h-5 w-5" />
-                  <span>About</span>
-                </button>
+                />
+                <NavButton icon={Globe} text="About" onClick={() => handleNavigation("/about")} />
 
-                <div className="pt-2 space-y-2">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                   <button
-                    onClick={() => handleNavigation("/signin")}
-                    className="w-full text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors"
+                    onClick={() => handleNavigation("/login")}
+                    className="w-full px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                   >
                     Log in
                   </button>
                   <button
                     onClick={() => handleNavigation("/signup")}
-                    className="w-full bg-white text-indigo-600 hover:bg-white/90 px-3 py-2 rounded-lg font-medium transition-colors"
+                    className="w-full px-4 py-2 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200"
                   >
                     Sign up
                   </button>
