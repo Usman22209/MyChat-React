@@ -6,8 +6,10 @@ import ScreenWrapper from "@components/screen-wrapper";
 import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Checkbox from "rc-checkbox";
 import "rc-checkbox/assets/index.css";
+import { useAppNavigation } from "@utils/Navigation";
 
 const Login: React.FC = () => {
+  const navigate = useAppNavigation();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,7 +34,7 @@ const Login: React.FC = () => {
   });
 
   return (
-    <ScreenWrapper className="py-12" >
+    <ScreenWrapper className="py-12">
       <div className="w-full max-w-md px-0 md:px-6">
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8 shadow-xl dark:shadow-2xl transition-all duration-300 backdrop-blur-sm bg-opacity-95 dark:bg-opacity-90">
           <div className="flex flex-col items-center mb-6 md:mb-8">
@@ -174,7 +176,10 @@ const Login: React.FC = () => {
 
           <p className="mt-4 md:mt-6 text-center text-xs md:text-sm text-gray-600 dark:text-gray-300">
             Don't have an account?{" "}
-            <button className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+            <button
+              onClick={() => navigate("/signup")}
+              className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
               Sign up now
             </button>
           </p>

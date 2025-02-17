@@ -4,7 +4,6 @@ import { Shield, Zap, Globe, Users, Lock, Sparkles, ArrowRight } from "lucide-re
 import Typed from "typed.js";
 import ScreenWrapper from "@components/screen-wrapper";
 import { landingPlaceholder, logo1, logo2, logo3, logo4 } from "@assets/img";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import ImageContainer from "./LandingImageContainer";
 interface FeatureCardProps {
@@ -139,36 +138,34 @@ const LandingPage = () => {
         </div>
       </section>
       {/* CTA Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="relative">
-            {/* Glowing Background Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur-2xl opacity-30"></div>
+      <section className="py-16 px-4 sm:py-24">
+  <div className="max-w-5xl mx-auto text-center relative">
+    {/* Glowing Background Effect */}
+    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur-xl opacity-20 sm:opacity-30"></div>
 
-            {/* CTA Content */}
-            <div className="relative bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl py-12 px-8 shadow-2xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-snug">
-                Start chatting with ease
-              </h2>
-              <p className="text-lg text-indigo-200 max-w-3xl mx-auto mb-8">
-                Join millions of users who trust our platform for their communication needs. Get
-                started for free and experience the difference today.
-              </p>
+    {/* CTA Content */}
+    <div className="relative bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl py-10 sm:py-12 px-6 sm:px-8 shadow-2xl">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-snug">
+        Start chatting with ease
+      </h2>
+      <p className="text-base sm:text-lg text-indigo-200 max-w-lg sm:max-w-3xl mx-auto mb-6 sm:mb-8">
+        Join millions of users who trust our platform for their communication needs. Get started
+        for free and experience the difference today.
+      </p>
 
-              {/* CTA Button */}
-              <div className="flex justify-center">
-                <button
-                  onClick={() => navigate("/signup")}
-                  className="bg-white text-indigo-700 px-8 py-2 sm:py-4
-                   rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-lg cursor-pointer"
-                >
-                  Get Started Free <ArrowRight className="h-6 w-6" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* CTA Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => navigate("/signup")}
+          className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-base sm:text-lg cursor-pointer"
+        >
+          Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
     </ScreenWrapper>
   );
 };
