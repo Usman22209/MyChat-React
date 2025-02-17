@@ -154,12 +154,13 @@ const AboutPage = () => {
                 key={index}
                 className="flex flex-col items-center space-y-4 bg-white dark:bg-gray-800 p-8 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative w-32 h-32 rounded-full overflow-hidden">
+                {/* Image Wrapper with Fixed Size */}
+                <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-600 dark:border-indigo-400">
                   <LazyLoadImage
                     src={user}
                     alt={`Team Member ${index}`}
                     effect="blur"
-                    className="object-cover w-full h-full rounded-full border-4 border-indigo-600 dark:border-indigo-400"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">John Doe</h3>

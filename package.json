@@ -20,6 +20,7 @@
     "rc-checkbox": "^3.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.5.2",
     "react-lazy-load-image-component": "^1.6.3",
     "react-router-dom": "^7.1.5",
     "tailwindcss": "^4.0.3",

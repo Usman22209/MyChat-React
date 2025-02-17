@@ -1,1 +1,1 @@
-export {default as SkeletonLoader} from './SkeletonLoader';
+export {default as SkeletonLoader} from './ImageContainer';

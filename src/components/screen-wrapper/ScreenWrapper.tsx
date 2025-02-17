@@ -34,7 +34,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 transition-all duration- z-10`}
+      className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 transition-all duration- z-10 text-gray-900 dark:text-gray-100`}
     >
       {!loading ? isLoggedIn ? <MainNavbar /> : <AuthNavbar /> : null}
 
