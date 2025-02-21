@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Zap, Globe, Users, Lock, Sparkles, ArrowRight } from "lucide-react";
 import Typed from "typed.js";
@@ -29,7 +29,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const typedElement = useRef(null);
 
-  useEffect(() => {
+  const handleMount = useCallback(() => {
     const typed = new Typed(typedElement.current, {
       strings: [
         'Connect with anyone, ^500 <span class="text-indigo-600 dark:text-indigo-400">anywhere</span>',
@@ -47,7 +47,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <ScreenWrapper maxWidth="full" padding="p-0">
+    <ScreenWrapper maxWidth="full" padding="p-0" onMount={handleMount}>
       {/* Hero Section */}
       <section className="pt-16 pb-20 px-6 text-center sm:text-left">
         <div className="max-w-6xl mx-auto flex flex-col-reverse sm:flex-row items-center gap-12">
@@ -139,33 +139,32 @@ const LandingPage = () => {
       </section>
       {/* CTA Section */}
       <section className="py-16 px-4 sm:py-24">
-  <div className="max-w-5xl mx-auto text-center relative">
-    {/* Glowing Background Effect */}
-    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur-xl opacity-20 sm:opacity-30"></div>
+        <div className="max-w-5xl mx-auto text-center relative">
+          {/* Glowing Background Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur-xl opacity-20 sm:opacity-30"></div>
 
-    {/* CTA Content */}
-    <div className="relative bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl py-10 sm:py-12 px-6 sm:px-8 shadow-2xl">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-snug">
-        Start chatting with ease
-      </h2>
-      <p className="text-base sm:text-lg text-indigo-200 max-w-lg sm:max-w-3xl mx-auto mb-6 sm:mb-8">
-        Join millions of users who trust our platform for their communication needs. Get started
-        for free and experience the difference today.
-      </p>
+          {/* CTA Content */}
+          <div className="relative bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl py-10 sm:py-12 px-6 sm:px-8 shadow-2xl">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-snug">
+              Start chatting with ease
+            </h2>
+            <p className="text-base sm:text-lg text-indigo-200 max-w-lg sm:max-w-3xl mx-auto mb-6 sm:mb-8">
+              Join millions of users who trust our platform for their communication needs. Get
+              started for free and experience the difference today.
+            </p>
 
-      {/* CTA Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={() => navigate("/signup")}
-          className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-base sm:text-lg cursor-pointer"
-        >
-          Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
+            {/* CTA Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => navigate("/signup")}
+                className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-base sm:text-lg cursor-pointer"
+              >
+                Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </ScreenWrapper>
   );
 };
