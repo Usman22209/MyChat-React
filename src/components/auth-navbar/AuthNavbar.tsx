@@ -34,7 +34,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ checked, onChange }) => (
 const NavButton: React.FC<NavButtonProps> = ({ icon: Icon, text, onClick, className }) => (
   <button
     onClick={onClick}
-    className={`flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 ${className}`}
+    className={`flex items-center space-x-2 px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800 rounded-lg transition-all duration-200 ${className}`}
   >
     <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
     <span className="text-sm sm:text-base">{text}</span>

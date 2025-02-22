@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Typed from "typed.js";
 import ScreenWrapper from "@components/screen-wrapper";
@@ -13,7 +14,12 @@ const logos = [logo1, logo2, logo3, logo4];
 
 const LandingPage: React.FC = React.memo(() => {
   const navigate = useNavigate();
-
+  const featureVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } },
+  };
+  const arrowRef = useRef(null);
+  const isInView = useInView(arrowRef, { once: true, margin: "-100px" });
   const typedElement = useRef<HTMLSpanElement>(null);
 
   const handleMount = useCallback(() => {
@@ -78,19 +84,28 @@ const LandingPage: React.FC = React.memo(() => {
 
       {/* Features Section */}
       <section className="py-20 px-6 w-full bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-6xl mx-auto text-center">
+        <motion.div
+          className="max-w-6xl mx-auto text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
             Everything you need in a modern chat app
           </h2>
           <p className="sm:text-lg text-md text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
             Built with the latest technology to ensure the best messaging experience.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={featureVariants}
+          >
             {LandingFeatures.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Trusted Logos Section */}
@@ -128,7 +143,15 @@ const LandingPage: React.FC = React.memo(() => {
                 className="bg-white flex w-full sm:w-auto justify-center text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 items-center gap-2 text-base sm:text-lg cursor-pointer"
               >
                 <span className="flex items-center gap-2">
-                  Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                  Get Started Free
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+                    viewport={{ once: true }} // Ensures animation runs only once per scroll
+                  >
+                    <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </motion.div>
                 </span>
               </button>
             </div>
