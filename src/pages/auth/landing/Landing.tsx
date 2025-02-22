@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Typed from "typed.js";
@@ -11,7 +11,6 @@ import { LandingFeatures } from "@constants/Landing.constant";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const logos = [logo1, logo2, logo3, logo4];
 import { useAuth } from "@providers/auth-provider/AuthProvider";
-import { log } from "console";
 const LandingPage: React.FC = React.memo(() => {
   const navigate = useNavigate();
   const { user } = useAuth();

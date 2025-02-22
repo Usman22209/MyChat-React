@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ScreenWrapper from "@components/screen-wrapper";
 import { Mail, Phone, MapPin, Send, CheckCircle, XCircle } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { location } from "@utils/URL";
@@ -57,6 +57,7 @@ const ContactPage: React.FC = () => {
         });
       }
     } catch (error) {
+      console.log(error);
       toast.error("An error occurred. Please try again.", {
         icon: "⚠️",
       });

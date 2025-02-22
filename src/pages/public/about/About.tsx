@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Shield, Globe, Users, Zap, Info, Lock, ArrowRight, MessageSquare } from "lucide-react";
+import { Shield, Globe, Users, ArrowRight } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import ScreenWrapper from "@components/screen-wrapper";

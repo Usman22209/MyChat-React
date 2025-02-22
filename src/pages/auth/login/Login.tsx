@@ -7,7 +7,7 @@ import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Checkbox from "rc-checkbox";
 import "rc-checkbox/assets/index.css";
 import { useAppNavigation } from "@utils/Navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
   const { login, signInWithGoogle } = useAuth();
@@ -35,12 +35,21 @@ const Login: React.FC = () => {
         await login(values.email, values.password, rememberMe);
         toast.success("Login successful");
         console.log("Login successful");
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error("Login Error:", error);
-        const errorMessage = error?.message || "Invalid email or password. Please try again.";
+
+        let errorMessage = "Invalid email or password. Please try again.";
+
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        } else if (typeof error === "object" && error !== null && "message" in error) {
+          errorMessage = String((error as { message: unknown }).message);
+        }
+
         toast.error(errorMessage);
         setErrors({ email: errorMessage });
       }
+
       setSubmitting(false);
     },
   });
@@ -199,5 +208,4 @@ const Login: React.FC = () => {
     </ScreenWrapper>
   );
 };
-
 export default Login;

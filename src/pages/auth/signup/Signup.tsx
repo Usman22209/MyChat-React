@@ -27,7 +27,7 @@ const Signup: React.FC = () => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        const user = await signUp(values.email, values.password);
+        await signUp(values.email, values.password);
         alert("Signup successful! Please check your email to verify your account.");
       } catch (error: unknown) {
         setErrors({ email: error as string });
