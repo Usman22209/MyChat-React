@@ -1,36 +1,18 @@
-import { Routes } from "react-router-dom";
-// import Dashboard from '../pages/Dashboard';
-// import Profile from '../pages/Profile';
-// import Settings from '../pages/Settings';
-// import ProtectedRoute from './ProtectedRoute';
+// src/routes/MainRoutes.tsx
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "@pages/auth/landing";
+// import ChatPage from "@pages/public/chat/Chat";
+// import DashboardPage from "@pages/public/dashboard/Dashboard";
+// import ProfilePage from "@pages/public/profile/Profile";
+// import SettingsPage from "@pages/public/settings/Settings";
 
 const MainRoutes = () => {
   return (
     <Routes>
-      {/* <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/settings"
-        element={
-          <ProtectedRoute>
-            <Settings />
-          </ProtectedRoute>
-        }
-      /> */}
+      <Route path="/" element={<LandingPage />} />
+      {/* <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/settings" element={<SettingsPage />} /> */}
     </Routes>
   );
 };

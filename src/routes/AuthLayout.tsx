@@ -1,15 +1,16 @@
-// src/routes/ProtectedRoute.tsx
+// src/layouts/AuthLayout.tsx
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = () => {
+const AuthLayout = () => {
   const { user } = useAuth();
 
-  if (!user) {
-    return <Navigate to="/auth/login" replace />;
+  
+  if (user) {
+    return <Navigate to="/chat" replace />;
   }
 
   return <Outlet />;
 };
 
-export default ProtectedRoute;
+export default AuthLayout;

@@ -68,7 +68,6 @@ const ContactPage: React.FC = () => {
 
   return (
     <ScreenWrapper maxWidth="full" padding="p-0">
-      <Toaster position="top-right" reverseOrder={false} />
       <section className="py-20 px-4 max-w-7xl mx-auto text-center">
         <h1 className="text-4xl font-bold">Get in Touch</h1>
         <p className="text-xl mt-4">We’d love to hear from you!</p>

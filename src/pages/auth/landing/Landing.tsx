@@ -8,7 +8,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import ImageContainer from "./LandingImageContainer";
 import FeatureCard from "@components/feature-card";
 import { LandingFeatures } from "@constants/Landing.constant";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 const logos = [logo1, logo2, logo3, logo4];
 
 const LandingPage: React.FC = React.memo(() => {
@@ -52,7 +52,7 @@ const LandingPage: React.FC = React.memo(() => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center sm:justify-start">
               <button
                 onClick={handleSignup}
-                className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                className="bg-indigo-600 justify-center hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
               >
                 Get Started Free <ArrowRight className="h-5 w-5" />
               </button>
@@ -65,8 +65,9 @@ const LandingPage: React.FC = React.memo(() => {
             </div>
           </div>
           <div className="w-full sm:w-1/2">
-            <img
+            <LazyLoadImage
               src={landingPlaceholder}
+              effect="blur"
               alt="Chat Interface"
               className="rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full"
             />
@@ -123,9 +124,11 @@ const LandingPage: React.FC = React.memo(() => {
             <div className="flex justify-center">
               <button
                 onClick={handleSignup}
-                className="bg-white text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-2 text-base sm:text-lg cursor-pointer"
+                className="bg-white flex w-full sm:w-auto justify-center text-indigo-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 items-center gap-2 text-base sm:text-lg cursor-pointer"
               >
-                Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                <span className="flex items-center gap-2">
+                  Get Started Free <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                </span>
               </button>
             </div>
           </div>

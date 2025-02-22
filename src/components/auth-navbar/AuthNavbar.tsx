@@ -49,12 +49,8 @@ const AuthNavbar: React.FC = () => {
   const validRoutes = ["/", "/security", "/contact", "/about", "/login", "/signup"];
 
   const handleNavigation = (url: string) => {
-    if (validRoutes.includes(url)) {
-      navigate(url);
-      setIsOpen(false);
-    } else {
-      console.error(`Invalid route: ${url}`);
-    }
+    navigate(url);
+    setIsOpen(false);
   };
 
   return (
@@ -95,13 +91,13 @@ const AuthNavbar: React.FC = () => {
 
             {/* Auth Buttons */}
             <button
-              onClick={() => handleNavigation("/login")}
+              onClick={() => handleNavigation("/auth/login")}
               className="px-4 py-2 text-sm md:text-base text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
             >
               Log in
             </button>
             <button
-              onClick={() => handleNavigation("/signup")}
+              onClick={() => handleNavigation("/auth/signup")}
               className="px-4 py-2 text-sm md:text-base bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200"
             >
               Sign up
@@ -164,13 +160,13 @@ const AuthNavbar: React.FC = () => {
                 {/* Auth Buttons */}
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                   <button
-                    onClick={() => handleNavigation("/login")}
+                    onClick={() => handleNavigation("/auth/login")}
                     className="w-full px-4 py-2 text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                   >
                     Log in
                   </button>
                   <button
-                    onClick={() => handleNavigation("/signup")}
+                    onClick={() => handleNavigation("/auth/signup")}
                     className="w-full px-4 py-2 mt-2 text-xs sm:text-sm md:text-base bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200"
                   >
                     Sign up

@@ -4,7 +4,7 @@ import MainNavbar from "@components/main-navbar";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import Footer from "@components/footer";
 import Loader from "@components/loader";
-
+import { Toaster } from "react-hot-toast";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -60,8 +60,8 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
         className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 
                       transition-all duration-300 text-gray-900 dark:text-gray-100"
       >
+        <Toaster position="top-right" reverseOrder={false} />
         {!authLoading && (isLoggedIn ? <MainNavbar /> : <AuthNavbar />)}
-
         {loading ? (
           <Loader />
         ) : (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
@@ -7,12 +7,20 @@ import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Checkbox from "rc-checkbox";
 import "rc-checkbox/assets/index.css";
 import { useAppNavigation } from "@utils/Navigation";
-
+import toast, { Toaster } from "react-hot-toast";
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [rememberMe, setRememberMe] = useState(false);
+  useEffect(() => {
+    const rememberedUser = localStorage.getItem("rememberedUser");
+    if (rememberedUser) {
+      const { email, password } = JSON.parse(rememberedUser);
+      formik.setValues({ email, password });
+      setRememberMe(true);
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,9 +33,13 @@ const Login: React.FC = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         await login(values.email, values.password);
+        toast.success("Login successful");
         console.log("Login successful");
-      } catch (error: unknown) {
-        setErrors({ email: error as string });
+      } catch (error: any) {
+        console.error("Login Error:", error);
+        const errorMessage = error?.message || "Invalid email or password. Please try again.";
+        toast.error(errorMessage);
+        setErrors({ email: errorMessage });
       }
       setSubmitting(false);
     },
@@ -96,11 +108,7 @@ const Login: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Checkbox
-                  id="remember"
-                  className="h-3 w-3 md:h-4 md:w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:checked:bg-indigo-500 transition-colors duration-300"
-                  {...formik.getFieldProps("remember")}
-                />
+                <Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                 <label
                   htmlFor="remember"
                   className="ml-2 block text-xs md:text-sm text-gray-600 dark:text-gray-300"
