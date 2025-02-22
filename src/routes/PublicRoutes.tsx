@@ -1,8 +1,8 @@
 // src/routes/PublicRoutes.tsx
 import { Routes, Route } from "react-router-dom";
 import HomePage from "@pages/auth/landing";
-import AboutPage from "@pages/auth/about";
-import ContactPage from "@pages/auth/contact";
+import AboutPage from "@pages/public/about";
+import ContactPage from "@pages/public/contact";
 import NotFoundPage from "@pages/public/not-found";
 
 const PublicRoutes = () => {
