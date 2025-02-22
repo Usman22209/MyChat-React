@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState,useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, Zap, Globe, Users, Lock, Sparkles, ArrowRight } from "lucide-react";
 import Typed from "typed.js";
@@ -6,25 +6,8 @@ import ScreenWrapper from "@components/screen-wrapper";
 import { landingPlaceholder, logo1, logo2, logo3, logo4 } from "@assets/img";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import ImageContainer from "./LandingImageContainer";
-interface FeatureCardProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-}
-const FeatureCard: React.FC<FeatureCardProps> = ({ icon: Icon, title, description }) => (
-  <div className="p-6 md:p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer text-center sm:text-left">
-    <div className="mx-auto sm:mx-0 rounded-full bg-indigo-50 dark:bg-indigo-900/30 w-12 h-12 flex items-center justify-center mb-4 sm:mb-6">
-      <Icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-    </div>
-    <h3 className="text-lg md:text-xl font-semibold mb-2 sm:mb-3 text-gray-900 dark:text-white">
-      {title}
-    </h3>
-    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed">
-      {description}
-    </p>
-  </div>
-);
-
+import FeatureCard from "@components/feature-card";
+import { LandingFeatures } from "@constants/Landing.constant";
 const LandingPage = () => {
   const navigate = useNavigate();
   const typedElement = useRef(null);
@@ -85,7 +68,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 px-6 w-full bg-gray-50 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
             Everything you need in a modern chat app
@@ -93,35 +76,8 @@ const LandingPage = () => {
           <p className="sm:text-lg text-md text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
             Built with the latest technology to ensure the best messaging experience.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Zap,
-                title: "Lightning Fast",
-                description: "Real-time messaging with instant delivery.",
-              },
-              {
-                icon: Shield,
-                title: "Secure by Default",
-                description: "Enterprise-grade encryption for privacy.",
-              },
-              { icon: Globe, title: "Global Reach", description: "Connect with people worldwide." },
-              {
-                icon: Users,
-                title: "Group Chats",
-                description: "Create and manage multiple group chats.",
-              },
-              {
-                icon: Sparkles,
-                title: "Rich Features",
-                description: "Share files, images, and react with emojis.",
-              },
-              {
-                icon: Lock,
-                title: "Privacy First",
-                description: "Your data is secure and never shared.",
-              },
-            ].map((feature, index) => (
+          <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {LandingFeatures.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}
           </div>
@@ -132,7 +88,7 @@ const LandingPage = () => {
           <h2 className="text-4xl font-bold text-white mb-16">Trusted by millions worldwide</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center">
             {[logo1, logo2, logo3, logo4].map((image, index) => (
-              <ImageContainer key={index} image={image} index={index} />
+              <ImageContainer key={index} image={image}  index={index} />
             ))}
           </div>
         </div>

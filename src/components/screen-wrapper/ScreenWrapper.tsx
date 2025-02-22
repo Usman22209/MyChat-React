@@ -3,7 +3,7 @@ import AuthNavbar from "@components/auth-navbar";
 import MainNavbar from "@components/main-navbar";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import Footer from "@components/footer";
-
+import Loader from "@components/loader";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -35,6 +35,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
 }) => {
   const { loading: authLoading, isLoggedIn } = useAuth();
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (!loading) {
       setTimeout(() => {
@@ -42,25 +43,20 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
       }, 0);
     }
   }, [loading, authLoading, onMount]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 400);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 transition-all duration- z-10 text-gray-900 dark:text-gray-100`}
-    >
-      {/* Always show the navbar */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 transition-all duration- z-10 text-gray-900 dark:text-gray-100">
       {!authLoading ? isLoggedIn ? <MainNavbar /> : <AuthNavbar /> : null}
 
-      {/* Loader shown below navbar */}
       {loading ? (
-        <div className="flex justify-center items-center py-10">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-indigo-600 dark:border-indigo-400"></div>
-        </div>
+        <Loader />
       ) : (
         <>
           <div

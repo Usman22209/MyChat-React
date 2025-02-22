@@ -14,7 +14,8 @@
       "@types/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@services/*": ["src/services/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@constants/*": ["src/constants/*"],
     },
     "target": "ESNext",
     "module": "ESNext",

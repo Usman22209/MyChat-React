@@ -16,7 +16,8 @@
       "@configs": ["configs/*"],
       "@hooks/*": ["hooks/*"],
       "@services/*": ["services/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@constants/*": ["constants/*"],
     }
   }
 }
