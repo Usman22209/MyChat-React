@@ -8,7 +8,7 @@ import { useAppNavigation } from "@utils/Navigation";
 
 const Signup: React.FC = () => {
   const navigate = useAppNavigation();
-  const { signUp,signInWithGoogle } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

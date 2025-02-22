@@ -14,8 +14,8 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import { log } from "console";
 const LandingPage: React.FC = React.memo(() => {
   const navigate = useNavigate();
-  const {user} = useAuth();
-  console.table(user)
+  const { user } = useAuth();
+  console.table(user);
   const typedElement = useRef<HTMLSpanElement>(null);
 
   const handleMount = useCallback(() => {

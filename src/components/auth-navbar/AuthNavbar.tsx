@@ -46,7 +46,6 @@ const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-
   const handleNavigation = (url: string) => {
     navigate(url);
     setIsOpen(false);

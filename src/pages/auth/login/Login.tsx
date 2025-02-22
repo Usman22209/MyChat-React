@@ -10,7 +10,7 @@ import { useAppNavigation } from "@utils/Navigation";
 import toast, { Toaster } from "react-hot-toast";
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
-  const { login ,signInWithGoogle} = useAuth();
+  const { login, signInWithGoogle } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   useEffect(() => {
