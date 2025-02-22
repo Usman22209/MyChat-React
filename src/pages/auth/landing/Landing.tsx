@@ -10,11 +10,10 @@ import FeatureCard from "@components/feature-card";
 import { LandingFeatures } from "@constants/Landing.constant";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 const logos = [logo1, logo2, logo3, logo4];
-import { useAuth } from "@providers/auth-provider/AuthProvider";
+
 const LandingPage: React.FC = React.memo(() => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  console.table(user);
+
   const typedElement = useRef<HTMLSpanElement>(null);
 
   const handleMount = useCallback(() => {
