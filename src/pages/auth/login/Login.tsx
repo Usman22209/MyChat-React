@@ -116,7 +116,10 @@ const Login: React.FC = () => {
                   Remember me
                 </label>
               </div>
-              <button onClick={() => navigate("/auth/forgot-password")}  className="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 cursor-pointer">
+              <button
+                onClick={() => navigate("/auth/forgot-password")}
+                className="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 cursor-pointer"
+              >
                 Forgot password?
               </button>
             </div>

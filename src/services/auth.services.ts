@@ -3,13 +3,18 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "@configs/firebase.config";
 
 export const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    const user = userCredential.user;
+    await sendEmailVerification(user);
+    console.log("Verification email sent");
+
+    return user;
   } catch (error) {
     console.error("Signup Error:", error);
     throw error;
@@ -20,6 +25,10 @@ export const login = async (email: string, password: string, rememberMe: boolean
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    if (!user.emailVerified) {
+      throw new Error("Your email is not verified. Please check your inbox.");
+    }
 
     if (rememberMe) {
       localStorage.setItem("rememberedUser", JSON.stringify({ email, password }));
