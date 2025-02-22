@@ -1,15 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@configs/firebase.config";
-import { login, logout, signUp } from "@services/auth.services";
+import { login, logout, signUp, forgotPassword } from "@services/auth.services";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   isLoggedIn: boolean;
-  login: (email: string, password: string) => Promise<User>;
+  login: (email: string, password: string, rememberMe: boolean) => Promise<User>;
   signUp: (email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -26,9 +27,13 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     return () => unsubscribe();
   }, []);
+
   const isLoggedIn = user !== null;
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, signUp, logout, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, signUp, logout, forgotPassword, isLoggedIn }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );
@@ -41,4 +46,5 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
+
 export default AuthProvider;

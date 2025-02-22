@@ -46,7 +46,6 @@ const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const validRoutes = ["/", "/security", "/contact", "/about", "/login", "/signup"];
 
   const handleNavigation = (url: string) => {
     navigate(url);

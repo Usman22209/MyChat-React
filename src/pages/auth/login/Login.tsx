@@ -32,7 +32,7 @@ const Login: React.FC = () => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        await login(values.email, values.password);
+        await login(values.email, values.password, rememberMe);
         toast.success("Login successful");
         console.log("Login successful");
       } catch (error: any) {
@@ -116,7 +116,7 @@ const Login: React.FC = () => {
                   Remember me
                 </label>
               </div>
-              <button className="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+              <button onClick={() => navigate("/auth/forgot-password")}  className="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 cursor-pointer">
                 Forgot password?
               </button>
             </div>
@@ -185,7 +185,7 @@ const Login: React.FC = () => {
           <p className="mt-4 md:mt-6 text-center text-xs md:text-sm text-gray-600 dark:text-gray-300">
             Don't have an account?{" "}
             <button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/auth/signup")}
               className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               Sign up now

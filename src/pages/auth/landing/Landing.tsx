@@ -33,7 +33,7 @@ const LandingPage: React.FC = React.memo(() => {
     return () => typed.destroy();
   }, []);
 
-  const handleSignup = useCallback(() => navigate("/signup"), [navigate]);
+  const handleSignup = useCallback(() => navigate("/auth/signup"), [navigate]);
   const handleLearnMore = useCallback(() => navigate("/about"), [navigate]);
 
   return (
