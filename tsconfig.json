@@ -17,7 +17,7 @@
       "@hooks/*": ["hooks/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
-      "@constants/*": ["constants/*"],
+      "@constants/*": ["constants/*"]
     }
   }
 }

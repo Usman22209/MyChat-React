@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-const validRoutes = ['/home', '/about', '/signup', '/login'];
+const validRoutes = ["/home", "/about", "/signup", "/login"];
 
 export const useAppNavigation = () => {
   const navigate = useNavigate();

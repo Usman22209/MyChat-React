@@ -88,7 +88,7 @@ const LandingPage = () => {
           <h2 className="text-4xl font-bold text-white mb-16">Trusted by millions worldwide</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center">
             {[logo1, logo2, logo3, logo4].map((image, index) => (
-              <ImageContainer key={index} image={image}  index={index} />
+              <ImageContainer key={index} image={image} index={index} />
             ))}
           </div>
         </div>
