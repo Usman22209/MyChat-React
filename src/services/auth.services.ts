@@ -3,6 +3,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
   sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "@configs/firebase.config";
@@ -61,6 +63,22 @@ export const forgotPassword = async (email: string) => {
     console.log("Password reset email sent.");
   } catch (error) {
     console.error("Forgot Password Error:", error);
+    throw error;
+  }
+};
+export const signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    if (!user.emailVerified) {
+      throw new Error("Your email is not verified. Please check your inbox.");
+    }
+
+    return user;
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
     throw error;
   }
 };

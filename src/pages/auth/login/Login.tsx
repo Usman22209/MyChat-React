@@ -10,7 +10,7 @@ import { useAppNavigation } from "@utils/Navigation";
 import toast, { Toaster } from "react-hot-toast";
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
-  const { login } = useAuth();
+  const { login ,signInWithGoogle} = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   useEffect(() => {
@@ -172,7 +172,7 @@ const Login: React.FC = () => {
             <button
               type="button"
               className="w-full bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 py-2.5 md:py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 text-sm md:text-base"
-              onClick={() => console.log("Google Sign-In clicked")}
+              onClick={() => signInWithGoogle()}
             >
               <svg
                 className="h-4 w-4 md:h-5 md:w-5 text-red-500"
