@@ -20,9 +20,9 @@ const LandingPage: React.FC = React.memo(() => {
     if (!typedElement.current) return;
     const typed = new Typed(typedElement.current, {
       strings: [
-        'Connect with anyone, ^500 <span class="text-indigo-600 dark:text-indigo-400">anywhere</span>',
-        'Connect with friends, ^500 <span class="text-indigo-600 dark:text-indigo-400">instantly</span>',
-        'Connect with family, ^500 <span class="text-indigo-600 dark:text-indigo-400">securely</span>',
+        'Connect with<br/> anyone, ^500 <span class="text-indigo-600 dark:text-indigo-400">anywhere</span>',
+        'Connect with <br/>friends, ^500 <span class="text-indigo-600 dark:text-indigo-400">instantly</span>',
+        'Connect with <br/> family, ^500 <span class="text-indigo-600 dark:text-indigo-400">securely</span>',
       ],
       typeSpeed: 50,
       backSpeed: 30,
