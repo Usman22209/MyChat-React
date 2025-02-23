@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const AuthLayout = () => {
   const { user } = useAuth();
 
-  if (user?.emailVerified) {
+  if (user?.bio) {
     return <Navigate to="/chat" replace />;
   }
 

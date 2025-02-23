@@ -6,6 +6,7 @@ import { login, logout, signUp, forgotPassword, signInWithGoogle } from "@servic
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  mainUser: any;
   isLoggedIn: boolean;
   login: (email: string, password: string, rememberMe: boolean) => Promise<User>;
   signUp: (email: string, password: string) => Promise<User>;
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [mainUser, setMainUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,7 +35,17 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, signUp, logout, forgotPassword, isLoggedIn, signInWithGoogle }}
+      value={{
+        user,
+        loading,
+        login,
+        signUp,
+        logout,
+        forgotPassword,
+        isLoggedIn,
+        signInWithGoogle,
+        mainUser,
+      }}
     >
       {!loading && children}
     </AuthContext.Provider>

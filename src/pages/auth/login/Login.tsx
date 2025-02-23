@@ -35,6 +35,7 @@ const Login: React.FC = () => {
         await login(values.email, values.password, rememberMe);
         toast.success("Login successful");
         console.log("Login successful");
+        navigate("/auth/additional-info");
       } catch (error: unknown) {
         console.error("Login Error:", error);
 
