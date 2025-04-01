@@ -85,10 +85,8 @@ export const signInWithGoogle = async () => {
       throw new Error("Your email is not verified. Please check your inbox.");
     }
 
-    // Retrieve and store the token.
     const token = await user.getIdToken();
     store.dispatch(setToken(token));
-
     return user;
   } catch (error) {
     console.error("Google Sign-In Error:", error);

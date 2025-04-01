@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Menu, X, MessageSquare, Shield, Globe, PhoneCall, Sun, Moon } from "lucide-react";
+import { MessageSquare, Shield, Globe, PhoneCall, Sun, Moon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
+import Switch from "@components/hamburger/Hamburger";
+
 
 interface ToggleSwitchProps {
   checked: boolean;
@@ -68,16 +70,8 @@ const AuthNavbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-2">
-            <NavButton
-              icon={Shield}
-              text="Security"
-              onClick={() => handleNavigation("/security")}
-            />
-            <NavButton
-              icon={PhoneCall}
-              text="Contact"
-              onClick={() => handleNavigation("/contact")}
-            />
+            <NavButton icon={Shield} text="Security" onClick={() => handleNavigation("/security")} />
+            <NavButton icon={PhoneCall} text="Contact" onClick={() => handleNavigation("/contact")} />
             <NavButton icon={Globe} text="About" onClick={() => handleNavigation("/about")} />
 
             {/* Theme Toggle */}
@@ -104,24 +98,16 @@ const AuthNavbar: React.FC = () => {
 
           {/* Mobile Controls */}
           <div className="md:hidden flex items-center space-x-3">
-            {/* Theme Toggle for Mobile */}
             <div className="flex items-center space-x-1">
               <Sun className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <ToggleSwitch checked={theme === "dark"} onChange={toggleTheme} />
               <Moon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
             </div>
 
-            {/* Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200"
-            >
-              {isOpen ? (
-                <X className="h-5 w-5 md:h-6 md:w-6" />
-              ) : (
-                <Menu className="h-5 w-5 md:h-6 md:w-6" />
-              )}
-            </button>
+            {/* Custom Switch Menu Button */}
+            <div className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200">
+              <Switch checked={isOpen} onChange={() => setIsOpen(!isOpen)} />
+            </div>
           </div>
         </div>
 
@@ -136,37 +122,16 @@ const AuthNavbar: React.FC = () => {
               className="md:hidden border-t border-gray-200 dark:border-gray-700 py-3"
             >
               <div className="flex flex-col space-y-2">
-                <NavButton
-                  icon={Shield}
-                  text="Security"
-                  onClick={() => handleNavigation("/security")}
-                  className="text-xs sm:text-sm md:text-base"
-                />
-                <NavButton
-                  icon={PhoneCall}
-                  text="Contact"
-                  onClick={() => handleNavigation("/contact")}
-                  className="text-xs sm:text-sm md:text-base"
-                />
-                <NavButton
-                  icon={Globe}
-                  text="About"
-                  onClick={() => handleNavigation("/about")}
-                  className="text-xs sm:text-sm md:text-base"
-                />
+                <NavButton icon={Shield} text="Security" onClick={() => handleNavigation("/security")} />
+                <NavButton icon={PhoneCall} text="Contact" onClick={() => handleNavigation("/contact")} />
+                <NavButton icon={Globe} text="About" onClick={() => handleNavigation("/about")} />
 
                 {/* Auth Buttons */}
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
-                  <button
-                    onClick={() => handleNavigation("/auth/login")}
-                    className="w-full px-4 py-2 text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
-                  >
+                  <button onClick={() => handleNavigation("/auth/login")} className="w-full px-4 py-2 text-xs sm:text-sm md:text-base text-gray-700 dark:text-gray-200">
                     Log in
                   </button>
-                  <button
-                    onClick={() => handleNavigation("/auth/signup")}
-                    className="w-full px-4 py-2 mt-2 text-xs sm:text-sm md:text-base bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200"
-                  >
+                  <button onClick={() => handleNavigation("/auth/signup")} className="w-full px-4 py-2 mt-2 text-xs sm:text-sm md:text-base bg-indigo-600 text-white rounded-lg">
                     Sign up
                   </button>
                 </div>

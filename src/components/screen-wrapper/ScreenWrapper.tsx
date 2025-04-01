@@ -59,7 +59,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
 
     return (
       <div
-        className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 
+        className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 
                       transition-all duration-300 text-gray-900 dark:text-gray-100"
       >
         <Toaster position="top-right" reverseOrder={false} />
@@ -69,7 +69,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
         ) : (
           <>
             <div
-              className={`w-full mx-auto ${padding} ${maxWidthClass} ${centered ? "flex flex-col items-center" : ""} ${className}`}
+              className={`w-full flex-grow  mx-auto ${padding} ${maxWidthClass} ${centered ? "flex flex-col items-center" : ""} ${className}`}
             >
               {children}
             </div>
