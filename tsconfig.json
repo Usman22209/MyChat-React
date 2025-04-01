@@ -20,7 +20,7 @@
       "@constants/*": ["constants/*"],
       "@redux/*": ["redux/*"],
       "@api/*": ["api/*"],
-      "@helper/*": ["helper/*"] 
+      "@helper/*": ["helper/*"]
     }
   }
 }

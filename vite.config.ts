@@ -24,7 +24,6 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "src/redux"),
       "@api": path.resolve(__dirname, "src/api"),
       "@helper": path.resolve(__dirname, "src/helper"),
-      
     },
   },
 });

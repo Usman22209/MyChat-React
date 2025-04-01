@@ -5,7 +5,7 @@ import AuthProvider from "@providers/auth-provider";
 import ThemeProvider from "@providers/theme-provider";
 import "./styles/index.css";
 import AppRoutes from "@routes/AppRoutes";
-import { store,persistor } from "@redux/store";
+import { store, persistor } from "@redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 createRoot(document.getElementById("root")!).render(

@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth } from "@configs/firebase.config"
+import { auth } from "@configs/firebase.config";
 import { setToken } from "@redux/slices/auth.slice";
 import { store } from "@redux/store";
 import { logout as reduxLogout } from "@redux/slices/auth.slice";
@@ -19,7 +19,7 @@ export const signUp = async (email: string, password: string) => {
     console.log("Verification email sent");
     const token = await user.getIdToken();
     console.log(token);
-    
+
     store.dispatch(setToken(token));
 
     return user;
@@ -44,7 +44,6 @@ export const login = async (email: string, password: string, rememberMe: boolean
       localStorage.removeItem("rememberedUser");
     }
 
-    // Retrieve and store the token in Redux.
     const token = await user.getIdToken();
     store.dispatch(setToken(token));
 
@@ -59,7 +58,6 @@ export const logout = async () => {
   try {
     await signOut(auth);
     console.log("User logged out");
-    // Optionally, clear token from Redux.
     store.dispatch(reduxLogout());
   } catch (error) {
     console.error("Logout Error:", error);

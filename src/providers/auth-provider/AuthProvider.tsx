@@ -45,7 +45,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const user = reduxUser ? reduxUser : null;
   const isLoggedIn = reduxUser !== null;
   console.log(isLoggedIn);
-  
+
   const token = reduxToken || "";
 
   // Custom logout function that handles both Firebase and Redux logout.

@@ -15,9 +15,9 @@
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
       "@constants/*": ["constants/*"],
-      "@redux/*": ["redux/*"] ,
+      "@redux/*": ["redux/*"],
       "@api/*": ["api/*"],
-      "@helper":["helper/*"]
+      "@helper": ["helper/*"]
     }
   }
 }

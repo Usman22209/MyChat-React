@@ -41,7 +41,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     // const state = store.getState();
     // const token = state.authPersist.token;
     // console.log(token ,"my token");
-    
+
     useEffect(() => {
       if (!loading) {
         setTimeout(() => {
