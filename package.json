@@ -8,7 +8,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-
     "preview": "vite preview",
     "format": "prettier --write ."
   },
@@ -28,6 +27,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
     "redux-persist": "^6.0.0",
+    "styled-components": "^6.1.16",
     "tailwind-merge": "^3.0.1",
     "tailwindcss": "^4.0.3",
     "typed.js": "^2.1.0",
