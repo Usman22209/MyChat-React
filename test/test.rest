@@ -1,0 +1,58 @@
+# Environment Variables (save in .env or declare inline)
+@baseUrl = http://localhost:3000/api/
+@token = {{}}eyJhbGciOiJSUzI1NiIsImtpZCI6ImE5ZGRjYTc2YzEyMzMyNmI5ZTJlODJkOGFjNDg0MWU1MzMyMmI3NmEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiTmV0bGlmeSBOZXQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTFdHZTJyR0c2WWk5cXJodjVHY2JGWFJTQ3Rpd1d5WDU3SEhDNXhBNGVGN05tREZBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL215Y2hhdC0zMDBmMyIsImF1ZCI6Im15Y2hhdC0zMDBmMyIsImF1dGhfdGltZSI6MTc0MzQ4OTg3OSwidXNlcl9pZCI6ImduS09welB5S2tNSld2VVhsYWoxRGV0dllNNTIiLCJzdWIiOiJnbktPcHpQeUtrTUpXdlVYbGFqMURldHZZTTUyIiwiaWF0IjoxNzQzNDg5ODc5LCJleHAiOjE3NDM0OTM0NzksImVtYWlsIjoibmV0bmV0bGlmeUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwMjM2ODg2MTI4ODY3MzY5MDIzMCJdLCJlbWFpbCI6WyJuZXRuZXRsaWZ5QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.o3iuY2_LhYH1qVGPrdG3l1ovXJR3Fi_w42SNQHSX8BJoX-pGwEVepsxqa8_ahxlsg9M36fj11_ph8shb84fzPKIN17xFBTTbLNpiPDWLiO8747Ut8cMTwev4DYX4bv9ZARgvLqxbxcQEpnverCqeFjvzbSnbGHYmXBzaL-z-Gp7t44IVFEw6GlB9TGPm8lXRP3t4pdG19PgRV6dsH7JOfo1WAnXnigZ7nQT4zkIM1r6zoWim0WnqSyLCJ666lzEbJIjocyYuhmx-eJrVd3Twh0GT4ITE6ewWLUiq96y8yJmStZGbR4vuI033xxOTxwTjKzPk8F1tzWof5vyZQzr8UQ
+
+### Authentication
+# Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "uid": "gnKOpzPyKkMJWvUXlaj1DetvYM52",
+    "name": "Netlify Net",
+    "email": "netnetlify@gmail.com",
+    "profilePic": "https://lh3.googleusercontent.com/a/ACg8ocLWGe2rGG6Yi9qrhv5GcbFXRSCtiwWyX57HHC5xA4eF7NmDFA=s96-c",
+    "bio": "my bio",
+    "gender": "male",
+    "country": "br"
+}
+
+### Users
+# Get All Users
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+# Get Single User
+GET {{baseUrl}}/users/1
+Authorization: Bearer {{token}}
+
+### Products
+# Get All Products
+GET {{baseUrl}}/products
+Authorization: Bearer {{token}}
+
+# Create a New Product
+POST {{baseUrl}}/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "New Product",
+    "price": 99.99,
+    "description": "A sample product description"
+}
+
+### Orders
+# Get Orders
+GET {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+# Place an Order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "productId": 1,
+    "quantity": 2
+}

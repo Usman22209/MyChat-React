@@ -34,13 +34,12 @@ const validationSchema = Yup.object({
 });
 
 const Onboarding = () => {
-  const loginRequest = useApi(AUTH_API.login, false, false);
+  const loginRequest = useApi(AUTH_API.signup, false, false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (values) => {
     if (!user) return;
-
     const userData = {
       uid: user.uid,
       name: user.displayName || "No Name",

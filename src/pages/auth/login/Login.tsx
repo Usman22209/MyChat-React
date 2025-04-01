@@ -8,19 +8,17 @@ import Checkbox from "rc-checkbox";
 import "rc-checkbox/assets/index.css";
 import { useAppNavigation } from "@utils/Navigation";
 import toast from "react-hot-toast";
+import { useApi } from "@hooks/useApi";
+import { AUTH_API } from "@api/auth.api";
+
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
   const { login, signInWithGoogle } = useAuth();
+  const loginRequest = useApi(AUTH_API.login, false, false); // Backend login API call
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  useEffect(() => {
-    const rememberedUser = localStorage.getItem("rememberedUser");
-    if (rememberedUser) {
-      const { email, password } = JSON.parse(rememberedUser);
-      formik.setValues({ email, password });
-      setRememberMe(true);
-    }
-  }, []);
+
+  // Initialize formik for email/password login
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -32,27 +30,36 @@ const Login: React.FC = () => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        await login(values.email, values.password, rememberMe);
-        toast.success("Login successful");
-        console.log("Login successful");
+        const userCredential = await login(values.email, values.password, rememberMe);
+        await loginRequest.requestCall({ uid: userCredential.uid });
+        toast.success("Login successful!");
       } catch (error: unknown) {
         console.error("Login Error:", error);
-
         let errorMessage = "Invalid email or password. Please try again.";
-
         if (error instanceof Error) {
           errorMessage = error.message;
-        } else if (typeof error === "object" && error !== null && "message" in error) {
-          errorMessage = String((error as { message: unknown }).message);
         }
-
-        toast.error(errorMessage);
         setErrors({ email: errorMessage });
+        toast.error(errorMessage);
       }
-
       setSubmitting(false);
     },
   });
+
+  const handleGoogleLogin = async () => {
+    try {
+      const userCredential = await signInWithGoogle();
+
+      console.log(userCredential.uid);
+      await loginRequest.requestCall({ uid: userCredential.uid });
+
+      toast.success("Login successful!");
+      navigate("/chat/onboarding");
+    } catch (error: unknown) {
+      console.error("Google Login Error:", error);
+      toast.error("Google login error, please try again.");
+    }
+  };
 
   return (
     <ScreenWrapper className="py-12">
@@ -118,14 +125,12 @@ const Login: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
-                <label
-                  htmlFor="remember"
-                  className="ml-2 block text-xs md:text-sm text-gray-600 dark:text-gray-300"
-                >
+                <label className="ml-2 block text-xs md:text-sm text-gray-600 dark:text-gray-300">
                   Remember me
                 </label>
               </div>
               <button
+                type="button"
                 onClick={() => navigate("/auth/forgot-password")}
                 className="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 cursor-pointer"
               >
@@ -136,7 +141,7 @@ const Login: React.FC = () => {
             <button
               type="submit"
               disabled={formik.isSubmitting}
-              className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white py-2.5 md:py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg text-sm md:text-base"
+              className="w-full bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white py-2.5 md:py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {formik.isSubmitting ? (
                 <span className="flex items-center justify-center">
@@ -180,8 +185,8 @@ const Login: React.FC = () => {
 
             <button
               type="button"
-              className="w-full bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 py-2.5 md:py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 text-sm md:text-base"
-              onClick={() => signInWithGoogle()}
+              className="w-full bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 py-2.5 md:py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center space-x-2"
+              onClick={handleGoogleLogin}
             >
               <svg
                 className="h-4 w-4 md:h-5 md:w-5 text-red-500"
@@ -208,4 +213,5 @@ const Login: React.FC = () => {
     </ScreenWrapper>
   );
 };
+
 export default Login;

@@ -5,4 +5,8 @@ export const AUTH_API = {
     const url = `${API_CONFIG.AUTH.login}`;
     return axiosHelper.post(url, payload);
   },
+  signup: async (payload: any) => {
+    const url = `${API_CONFIG.AUTH.signup}`;
+    return axiosHelper.post(url, payload);
+  },
 };
