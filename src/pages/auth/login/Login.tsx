@@ -10,15 +10,16 @@ import { useAppNavigation } from "@utils/Navigation";
 import toast from "react-hot-toast";
 import { useApi } from "@hooks/useApi";
 import { AUTH_API } from "@api/auth.api";
-
+import { setUser } from "@redux/slices/auth.slice";
+import { useDispatch } from "react-redux";
 const Login: React.FC = () => {
   const navigate = useAppNavigation();
   const { login, signInWithGoogle } = useAuth();
-  const loginRequest = useApi(AUTH_API.login, false, false); // Backend login API call
+  const dispatch = useDispatch();
+  const loginRequest = useApi(AUTH_API.login, false, false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // Initialize formik for email/password login
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -49,12 +50,10 @@ const Login: React.FC = () => {
   const handleGoogleLogin = async () => {
     try {
       const userCredential = await signInWithGoogle();
-
-      console.log(userCredential.uid);
-      await loginRequest.requestCall({ uid: userCredential.uid });
-
+      const response = await loginRequest.requestCall({ uid: userCredential.uid });
+      dispatch(setUser(response.user));
       toast.success("Login successful!");
-      navigate("/chat/onboarding");
+      navigate("/auth/onboarding");
     } catch (error: unknown) {
       console.error("Google Login Error:", error);
       toast.error("Google login error, please try again.");

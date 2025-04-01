@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Menu, X, MessageSquare, Bell, Settings, Search } from "lucide-react";
+import { useAuth } from "@providers/auth-provider/AuthProvider";
 // import { UserButton } from "@clerk/clerk-react";
-import { logout } from "@services/auth.services";
+ "@services/auth.services";
 
 const MainNavbar = () => {
+  const {logout}=useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   return (

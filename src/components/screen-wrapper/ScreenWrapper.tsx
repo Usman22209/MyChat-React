@@ -38,8 +38,8 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
   }) => {
     const { loading: authLoading, isLoggedIn, user } = useAuth();
     const [loading, setLoading] = useState(true);
-    const state = store.getState();
-    const token = state.authPersist.token;
+    // const state = store.getState();
+    // const token = state.authPersist.token;
     // console.log(token ,"my token");
     
     useEffect(() => {

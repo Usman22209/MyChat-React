@@ -10,6 +10,7 @@ import {
 import { auth } from "@configs/firebase.config"
 import { setToken } from "@redux/slices/auth.slice";
 import { store } from "@redux/store";
+import { logout as reduxLogout } from "@redux/slices/auth.slice";
 export const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -59,7 +60,7 @@ export const logout = async () => {
     await signOut(auth);
     console.log("User logged out");
     // Optionally, clear token from Redux.
-    store.dispatch(setToken(null));
+    store.dispatch(reduxLogout());
   } catch (error) {
     console.error("Logout Error:", error);
   }

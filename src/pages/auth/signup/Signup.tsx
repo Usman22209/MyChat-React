@@ -29,7 +29,7 @@ const Signup: React.FC = () => {
       try {
         await signUp(values.email, values.password);
         alert("Signup successful! Please check your email to verify your account.");
-        navigate("/chat/onboarding");
+        navigate("/auth/onboarding");
       } catch (error: unknown) {
         setErrors({ email: error as string });
       }
@@ -39,7 +39,7 @@ const Signup: React.FC = () => {
   const handleGoogleSignUp = async () => {
     try {
       await signInWithGoogle();
-      navigate("/chat/onboarding");
+      navigate("/auth/onboarding");
     } catch (error) {
       console.error("Google Signup Error:", error);
     }

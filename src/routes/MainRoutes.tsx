@@ -10,8 +10,8 @@ import Onboarding from "@pages/auth/onboarding";
 const MainRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Onboarding />} />
-      <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/" element={<LandingPage />} />
+  
 
       {/* <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/profile" element={<ProfilePage />} />
