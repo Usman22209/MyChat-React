@@ -35,8 +35,8 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     centered = true,
     onMount,
   }) => {
-    const { loading: authLoading, isLoggedIn, user } = useAuth();
-    console.log(user);
+    const { loading: authLoading, user } = useAuth();
+    // console.log("user is",user);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -62,7 +62,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
                       transition-all duration-300 text-gray-900 dark:text-gray-100"
       >
         <Toaster position="top-right" reverseOrder={false} />
-        {!authLoading && (isLoggedIn ? <MainNavbar /> : <AuthNavbar />)}
+        {!authLoading && (user ? <MainNavbar /> : <AuthNavbar />)}
         {loading ? (
           <Loader />
         ) : (
