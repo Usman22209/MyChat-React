@@ -12,6 +12,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   signInWithGoogle: () => Promise<User>;
+  token: string;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -30,10 +31,21 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   }, []);
 
   const isLoggedIn = user !== null;
+  const token = user?.accessToken;
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, signUp, logout, forgotPassword, isLoggedIn, signInWithGoogle }}
+      value={{
+        user,
+        loading,
+        login,
+        signUp,
+        logout,
+        forgotPassword,
+        isLoggedIn,
+        signInWithGoogle,
+        token,
+      }}
     >
       {!loading && children}
     </AuthContext.Provider>

@@ -7,14 +7,19 @@ import {
   signInWithPopup,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth } from "@configs/firebase.config";
-
+import { auth } from "@configs/firebase.config"
+import { setToken } from "@redux/slices/auth.slice";
+import { store } from "@redux/store";
 export const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     await sendEmailVerification(user);
     console.log("Verification email sent");
+    const token = await user.getIdToken();
+    console.log(token);
+    
+    store.dispatch(setToken(token));
 
     return user;
   } catch (error) {
@@ -38,6 +43,10 @@ export const login = async (email: string, password: string, rememberMe: boolean
       localStorage.removeItem("rememberedUser");
     }
 
+    // Retrieve and store the token in Redux.
+    const token = await user.getIdToken();
+    store.dispatch(setToken(token));
+
     return user;
   } catch (error) {
     console.error("Login Error:", error);
@@ -49,23 +58,24 @@ export const logout = async () => {
   try {
     await signOut(auth);
     console.log("User logged out");
+    // Optionally, clear token from Redux.
+    store.dispatch(setToken(null));
   } catch (error) {
     console.error("Logout Error:", error);
   }
 };
+
 export const forgotPassword = async (email: string) => {
   try {
     console.log(email);
-
-    const response = await sendPasswordResetEmail(auth, email);
-    console.log(response);
-
+    await sendPasswordResetEmail(auth, email);
     console.log("Password reset email sent.");
   } catch (error) {
     console.error("Forgot Password Error:", error);
     throw error;
   }
 };
+
 export const signInWithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
@@ -75,6 +85,10 @@ export const signInWithGoogle = async () => {
     if (!user.emailVerified) {
       throw new Error("Your email is not verified. Please check your inbox.");
     }
+
+    // Retrieve and store the token.
+    const token = await user.getIdToken();
+    store.dispatch(setToken(token));
 
     return user;
   } catch (error) {

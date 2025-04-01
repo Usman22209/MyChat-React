@@ -15,7 +15,10 @@
       "@hooks/*": ["src/hooks/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
-      "@constants/*": ["src/constants/*"]
+      "@constants/*": ["src/constants/*"],
+      "@redux/*": ["src/redux/*"],
+      "@api/*": ["src/api/*"],
+      "@helper/*": ["src/helper/*"] 
     },
     "target": "ESNext",
     "module": "ESNext",

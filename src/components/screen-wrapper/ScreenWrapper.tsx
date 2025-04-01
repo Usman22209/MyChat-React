@@ -5,6 +5,7 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import Footer from "@components/footer";
 import Loader from "@components/loader";
 import { Toaster } from "react-hot-toast";
+import { store } from "@redux/store";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -35,9 +36,12 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     centered = true,
     onMount,
   }) => {
-    const { loading: authLoading, isLoggedIn } = useAuth();
+    const { loading: authLoading, isLoggedIn, user } = useAuth();
     const [loading, setLoading] = useState(true);
-
+    const state = store.getState();
+    const token = state.authPersist.token;
+    console.log(token ,"my token");
+    
     useEffect(() => {
       if (!loading) {
         setTimeout(() => {

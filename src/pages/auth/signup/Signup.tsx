@@ -29,13 +29,21 @@ const Signup: React.FC = () => {
       try {
         await signUp(values.email, values.password);
         alert("Signup successful! Please check your email to verify your account.");
+        navigate("/chat/onboarding");
       } catch (error: unknown) {
         setErrors({ email: error as string });
       }
       setSubmitting(false);
     },
   });
-
+  const handleGoogleSignUp = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/chat/onboarding");
+    } catch (error) {
+      console.error("Google Signup Error:", error);
+    }
+  };
   return (
     <ScreenWrapper className="py-12">
       <div className="w-full max-w-md px-0 md:px-6">
@@ -172,7 +180,7 @@ const Signup: React.FC = () => {
             <button
               type="button"
               className="w-full bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600 py-2.5 md:py-3 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-0.5 text-sm md:text-base"
-              onClick={() => signInWithGoogle()}
+              onClick={handleGoogleSignUp}
             >
               <svg
                 className="h-4 w-4 md:h-5 md:w-5 text-red-500"

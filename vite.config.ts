@@ -21,6 +21,10 @@ export default defineConfig({
       "@services": path.resolve(__dirname, "src/services"),
       "@styles": path.resolve(__dirname, "src/styles"),
       "@constants": path.resolve(__dirname, "src/constants"),
+      "@redux": path.resolve(__dirname, "src/redux"),
+      "@api": path.resolve(__dirname, "src/api"),
+      "@helper": path.resolve(__dirname, "src/helper"),
+      
     },
   },
 });
