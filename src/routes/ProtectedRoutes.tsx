@@ -8,7 +8,6 @@ const ProtectedRoute = () => {
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
-
   return <Outlet />;
 };
 

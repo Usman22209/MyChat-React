@@ -36,11 +36,9 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     centered = true,
     onMount,
   }) => {
-    const { loading: authLoading, isLoggedIn, user } = useAuth();
+    const { loading: authLoading, isLoggedIn, firebaseUser } = useAuth();
     const [loading, setLoading] = useState(true);
-    // const state = store.getState();
-    // const token = state.authPersist.token;
-    // console.log(token ,"my token");
+    console.log(firebaseUser?.emailVerified, isLoggedIn);
 
     useEffect(() => {
       if (!loading) {

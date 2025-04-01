@@ -32,7 +32,9 @@ const Login: React.FC = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const userCredential = await login(values.email, values.password, rememberMe);
-        await loginRequest.requestCall({ uid: userCredential.uid });
+
+        const response = await loginRequest.requestCall({ uid: userCredential.uid });
+        dispatch(setUser(response.user));
         toast.success("Login successful!");
       } catch (error: unknown) {
         console.error("Login Error:", error);
@@ -53,7 +55,6 @@ const Login: React.FC = () => {
       const response = await loginRequest.requestCall({ uid: userCredential.uid });
       dispatch(setUser(response.user));
       toast.success("Login successful!");
-      navigate("/auth/onboarding");
     } catch (error: unknown) {
       console.error("Google Login Error:", error);
       toast.error("Google login error, please try again.");

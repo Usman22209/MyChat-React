@@ -1,14 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Upload, Info } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ScreenWrapper from "@components/screen-wrapper";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
-import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useApi } from "@hooks/useApi";
 import { AUTH_API } from "@api/auth.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "@redux/slices/auth.slice";
 const genderOptions = [
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
@@ -34,8 +35,9 @@ const validationSchema = Yup.object({
 });
 
 const Onboarding = () => {
-  const loginRequest = useApi(AUTH_API.signup, false, false);
-  const { user } = useAuth();
+  const signupRequest = useApi(AUTH_API.signup, false, false);
+  const { firebaseUser: user } = useAuth();
+  const dispatch=useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (values) => {
@@ -49,10 +51,10 @@ const Onboarding = () => {
       gender: values.gender,
       country: values.country,
     };
-
+    console.log(userData);
     try {
-      const response = await loginRequest.requestCall(userData);
-
+      const response = await signupRequest.requestCall(userData);
+      dispatch(setUser(response.user))
       console.log("User logged in:", response.data);
       //   navigate("/dashboard");
     } catch (error) {

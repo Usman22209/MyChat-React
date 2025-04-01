@@ -3,9 +3,9 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
-  const { user } = useAuth();
+  const { user, firebaseUser,isLoggedIn } = useAuth();
 
-  if (user?.emailVerified) {
+  if (firebaseUser?.emailVerified && isLoggedIn) {
     return <Navigate to="/chat" replace />;
   }
 
