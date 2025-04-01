@@ -8,3 +8,5 @@ export { default as aboutPlaceholder } from "./about-placeholder.png";
 export { default as user1 } from "./user1.jpeg";
 export { default as user2 } from "./user2.jpeg";
 export { default as user3 } from "./user3.jpeg";
+export { default as logoLight } from "./light.png";
+export {default as logoDark} from './dark.png'

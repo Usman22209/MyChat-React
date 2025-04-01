@@ -5,7 +5,7 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import Footer from "@components/footer";
 import Loader from "@components/loader";
 import { Toaster } from "react-hot-toast";
-import { store } from "@redux/store";
+import { useTheme } from "@providers/theme-provider/ThemeProvider";
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -37,8 +37,9 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     onMount,
   }) => {
     const { loading: authLoading, isLoggedIn, firebaseUser } = useAuth();
+    const {theme}=useTheme();
     const [loading, setLoading] = useState(true);
-    console.log(firebaseUser?.emailVerified, isLoggedIn);
+    console.log(theme);
 
     useEffect(() => {
       if (!loading) {
