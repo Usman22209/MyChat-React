@@ -4,8 +4,8 @@ import {
   signOut,
   sendPasswordResetEmail,
   GoogleAuthProvider,
-  signInWithPopup,
   sendEmailVerification,
+  signInWithRedirect,
 } from "firebase/auth";
 import { auth } from "@configs/firebase.config";
 
@@ -23,7 +23,24 @@ export const signUp = async (email: string, password: string) => {
   }
 };
 
-export const login = async (email: string, password: string, rememberMe: boolean) => {
+interface LoginRequestBody {
+  uid: string;
+  email: string | null;
+  name: string | null;
+  profilePic: string | null;
+}
+
+interface BackendResponse {
+  [key: string]: any;
+}
+
+import { User } from "firebase/auth";
+
+export const login = async (
+  email: string,
+  password: string,
+  rememberMe: boolean
+): Promise<User> => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -31,13 +48,6 @@ export const login = async (email: string, password: string, rememberMe: boolean
     if (!user.emailVerified) {
       throw new Error("Your email is not verified. Please check your inbox.");
     }
-
-    if (rememberMe) {
-      localStorage.setItem("rememberedUser", JSON.stringify({ email, password }));
-    } else {
-      localStorage.removeItem("rememberedUser");
-    }
-
     return user;
   } catch (error) {
     console.error("Login Error:", error);
@@ -69,7 +79,7 @@ export const forgotPassword = async (email: string) => {
 export const signInWithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
+    const result: any = await signInWithRedirect(auth, provider);
     const user = result.user;
 
     if (!user.emailVerified) {
