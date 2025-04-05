@@ -10,6 +10,8 @@ import ImageContainer from "./LandingImageContainer";
 import FeatureCard from "@components/feature-card";
 import { LandingFeatures } from "@constants/Landing.constant";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import HoverButton from "@components/hover-button/HoverButton";
+import HoverbuttonPrimary from "@components/hover-button/HoverButtonPrimary";
 const logos = [logo1, logo2, logo3, logo4];
 
 const LandingPage: React.FC = React.memo(() => {
@@ -57,18 +59,8 @@ const LandingPage: React.FC = React.memo(() => {
               designed for seamless communication.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center sm:justify-start">
-              <button
-                onClick={handleSignup}
-                className="bg-indigo-600 justify-center hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-              >
-                Get Started Free <ArrowRight className="h-5 w-5" />
-              </button>
-              <button
-                onClick={handleLearnMore}
-                className="bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-600 dark:border-indigo-400 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-medium hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all"
-              >
-                Learn More
-              </button>
+              <HoverbuttonPrimary text="Get Started" onClick={handleSignup} />
+              <HoverButton onClick={handleLearnMore} text="Learn More" />
             </div>
           </div>
           <div className="w-full sm:w-1/2">

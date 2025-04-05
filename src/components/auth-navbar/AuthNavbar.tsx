@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@components/toggle-theme";
 import Switch from "@components/hamburger/Hamburger";
-
+import { logoDark, logoLight } from "@assets/img";
+import { useTheme } from "@providers/theme-provider/ThemeProvider";
 interface NavButtonProps {
   icon: React.ElementType;
   text: string;
@@ -25,7 +26,7 @@ const NavButton: React.FC<NavButtonProps> = ({ icon: Icon, text, onClick, classN
 const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-
+const {theme}=useTheme();
   const handleNavigation = (url: string) => {
     navigate(url);
     setIsOpen(false);
@@ -39,7 +40,7 @@ const AuthNavbar: React.FC = () => {
             onClick={() => handleNavigation("/")}
             className="flex items-center space-x-2 focus:outline-none cursor-pointer"
           >
-            <MessageSquare className="h-6 w-6 md:h-8 md:w-8 text-indigo-600 dark:text-indigo-400" />
+            <img src={theme === "dark" ? logoDark : logoLight} alt="Logo" className="h-16 w-auto" />
             <span className="text-gray-900 dark:text-white font-bold text-lg md:text-xl">
               MyChat
             </span>

@@ -15,11 +15,11 @@ const AboutPage = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="lg:w-1/2 space-y-8">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
-                About ChatHub
+                About MyChat
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300">
-                ChatHub is a powerful messaging platform that connects people from all over the
-                world. Whether you're talking to friends, family, or coworkers, ChatHub ensures your
+                MyChat is a powerful messaging platform that connects people from all over the
+                world. Whether you're talking to friends, family, or coworkers, MyChat ensures your
                 communication is secure, fast, and always reliable.
               </p>
             </div>
@@ -28,7 +28,7 @@ const AboutPage = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl transform rotate-2 blur-xl opacity-20"></div>
                 <LazyLoadImage
                   src={aboutPlaceholder}
-                  alt="ChatHub Overview"
+                  alt="MyChat Overview"
                   effect="blur"
                   className="relative rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700"
                 />
@@ -45,7 +45,7 @@ const AboutPage = () => {
             Our Mission
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            Our mission at ChatHub is to revolutionize the way people connect. With a focus on
+            Our mission at MyChat is to revolutionize the way people connect. With a focus on
             speed, security, and user experience, we are dedicated to creating a space where
             individuals and groups can share, collaborate, and communicate without limitations.
           </p>
@@ -70,7 +70,7 @@ const AboutPage = () => {
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-12">
-            Key Features of ChatHub
+            Key Features of MyChat
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {AboutData.map((feature, index) => (
@@ -118,7 +118,7 @@ const AboutPage = () => {
               <h2 className="text-3xl lg:text-4xl font-bold mb-6">Ready to Join Us?</h2>
               <p className="text-xl mb-8 text-indigo-200">
                 Start communicating securely and instantly. Join millions of users already
-                experiencing the power of ChatHub.
+                experiencing the power of MyChat.
               </p>
               <button
                 onClick={() => (window.location.href = "/signup")}

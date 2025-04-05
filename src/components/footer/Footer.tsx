@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 import { location } from "@utils/URL";
-
+import { logoDark } from "@assets/img";
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-8 md:py-12 px-4">
@@ -8,8 +8,8 @@ const Footer = () => {
         {/* About Section */}
         <div>
           <div className="flex items-center gap-2 mb-3 md:mb-4">
-            <MessageSquare className="h-5 w-5 md:h-6 md:w-6" />
-            <span className="font-bold text-lg md:text-xl">ChatHub</span>
+          <img src={logoDark } alt="Logo" className="h-8 w-auto" />
+            <span className="font-bold text-lg md:text-xl">MyChat</span>
           </div>
           <p className="text-gray-400 text-sm md:text-base">Connecting people worldwide.</p>
         </div>

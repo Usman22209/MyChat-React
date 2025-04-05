@@ -20,7 +20,7 @@ const MainNavbar: React.FC = () => {
           <div className="flex-shrink-0 flex items-center space-x-2">
             <img src={theme === "dark" ? logoDark : logoLight} alt="Logo" className="h-16 w-auto" />
             <span className="text-gray-900 dark:text-white font-bold text-lg md:text-xl">
-              ChatHub
+              MyChat
             </span>
           </div>
           <div className="hidden md:flex items-center space-x-4">
