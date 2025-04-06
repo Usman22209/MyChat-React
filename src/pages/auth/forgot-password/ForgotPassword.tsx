@@ -51,7 +51,7 @@ const ForgotPassword: React.FC = () => {
                 <input
                   type="email"
                   placeholder="Email address"
-                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full pl-10 pr-4 py-3 placeholder:text-gray-600 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
                   {...formik.getFieldProps("email")}
                 />
               </div>
@@ -72,7 +72,7 @@ const ForgotPassword: React.FC = () => {
             <p className="mt-4 text-center text-sm text-gray-600">
               Remember your password?
               <button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/auth/login")}
                 className="text-indigo-600 font-medium ml-1 hover:text-indigo-500"
               >
                 Sign in

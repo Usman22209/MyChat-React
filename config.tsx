@@ -5,4 +5,7 @@ export const API_CONFIG = {
     login: "auth/login",
     signup: "auth/signup",
   },
+  USER:{
+    getOtherUser:(uid:string)=>`user/${uid}`,
+  }
 };

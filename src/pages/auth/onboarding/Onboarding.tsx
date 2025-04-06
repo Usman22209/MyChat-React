@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowRight, User, Globe, Pencil } from "lucide-react";
 import ScreenWrapper from "@components/screen-wrapper";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useApi } from "@hooks/useApi";
 import { AUTH_API } from "@api/auth.api";
@@ -14,13 +14,38 @@ import GenderSelector from "@components/gender-selector/GenderSelector";
 import CountrySelector from "@components/country-selector";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
 
+interface FormValues {
+  bio: string;
+  country: string;
+  gender: string;
+}
+
 const validationSchema = Yup.object({
   bio: Yup.string().required("Bio is required"),
   country: Yup.string().required("Please select your country"),
   gender: Yup.string().required("Please select your gender"),
 });
 
-const Onboarding = () => {
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { delayChildren: 0.3, staggerChildren: 0.2 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
+
+const handleFormikSelectChange = (form: any, fieldName: string, value: any) => {
+  form.setFieldValue(fieldName, value);
+  form.setFieldTouched(fieldName, true);
+};
+
+const Onboarding: React.FC = () => {
   const signupRequest = useApi(AUTH_API.signup, false, false);
   const { firebaseUser: user } = useAuth();
   const dispatch = useDispatch();
@@ -28,8 +53,12 @@ const Onboarding = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const handleLogin = async (values) => {
+  const handleLogin = async (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>
+  ): Promise<void> => {
     if (!user) return;
+
     const userData = {
       uid: user.uid,
       name: user.displayName || "No Name",
@@ -45,31 +74,16 @@ const Onboarding = () => {
       dispatch(setUser(response.user));
       console.log("User logged in:", response);
       // navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error.response?.data || error.message);
+    } finally {
+      actions.setSubmitting(false);
     }
-  };
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        delayChildren: 0.3,
-        staggerChildren: 0.2 
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
   };
 
   return (
     <ScreenWrapper maxWidth="lg" padding="p-4 md:p-6">
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -79,20 +93,17 @@ const Onboarding = () => {
       >
         <div className="flex items-center justify-between mb-8">
           <div>
-            <motion.h1 
-              variants={itemVariants} 
-              className="text-xl md:text-2xl font-bold"
-            >
+            <motion.h1 variants={itemVariants} className="text-xl md:text-2xl font-bold">
               Complete Your Profile
             </motion.h1>
-            <motion.p 
-              variants={itemVariants} 
+            <motion.p
+              variants={itemVariants}
               className={`mt-1 ${isDark ? "text-gray-300" : "text-gray-600"}`}
             >
               Let's personalize your experience
             </motion.p>
           </div>
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className={`hidden md:flex h-12 w-12 rounded-full items-center justify-center ${
               isDark ? "bg-gray-700" : "bg-indigo-50"
@@ -102,18 +113,22 @@ const Onboarding = () => {
           </motion.div>
         </div>
 
-        <Formik
+        <Formik<FormValues>
           initialValues={{ bio: "", country: "", gender: "" }}
           validationSchema={validationSchema}
           onSubmit={handleLogin}
+          validateOnMount={false}
         >
-          {({ isSubmitting, values, errors, touched }) => (
+          {({ isSubmitting, touched, errors }) => (
             <Form className="space-y-8">
               <motion.div variants={itemVariants} className="space-y-6">
+                {/* Bio */}
                 <div className="relative">
-                  <label className={`block text-sm font-medium mb-2 flex items-center ${
-                    isDark ? "text-gray-200" : "text-gray-700"
-                  }`}>
+                  <label
+                    className={`block text-sm font-medium mb-2 flex items-center ${
+                      isDark ? "text-gray-200" : "text-gray-700"
+                    }`}
+                  >
                     <Pencil size={16} className="mr-2" /> About You
                   </label>
                   <Field
@@ -121,81 +136,83 @@ const Onboarding = () => {
                     as="textarea"
                     placeholder="Tell us a bit about yourself..."
                     className={`w-full p-3 rounded-lg text-sm transition-colors ${
-                      isDark 
-                        ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" 
-                        : "bg-white border-gray-300 text-gray-800 placeholder-gray-400"
-                    } ${errors.bio && touched.bio ? "border-red-500" : "border"}`}
+                      isDark
+                        ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                        : "bg-white border border-gray-300 text-gray-800 placeholder-gray-400"
+                    }`}
                     rows={4}
                   />
-                  <ErrorMessage
-                    name="bio"
-                    component="div"
-                    className="text-red-500 text-sm mt-1"
-                  />
+                  {touched.bio && errors.bio && (
+                    <div className="text-red-500 text-sm mt-1">{errors.bio}</div>
+                  )}
                 </div>
 
+                {/* Country */}
                 <div className="relative">
-                  <label className={`block text-sm font-medium mb-2 flex items-center ${
-                    isDark ? "text-gray-200" : "text-gray-700"
-                  }`}>
+                  <label
+                    className={`block text-sm font-medium mb-2 flex items-center ${
+                      isDark ? "text-gray-200" : "text-gray-700"
+                    }`}
+                  >
                     <Globe size={16} className="mr-2" /> Your Country
                   </label>
                   <Field name="country">
-                    {({ field, form }) => (
+                    {({ field, form }: any) => (
                       <CountrySelector
                         value={field.value}
-                        onChange={(value) => form.setFieldValue("country", value)}
+                        onChange={(value: string | null) =>
+                          handleFormikSelectChange(form, "country", value || "")
+                        }
                         className="text-sm"
                       />
                     )}
                   </Field>
-                  <ErrorMessage
-                    name="country"
-                    component="div"
-                    className="text-red-500 text-sm mt-1"
-                  />
+                  {touched.country && errors.country && (
+                    <div className="text-red-500 text-sm mt-1">{errors.country}</div>
+                  )}
                 </div>
 
+                {/* Gender */}
                 <div className="relative">
-                  <label className={`block text-sm font-medium mb-2 flex items-center ${
-                    isDark ? "text-gray-200" : "text-gray-700"
-                  }`}>
+                  <label
+                    className={`block text-sm font-medium mb-2 flex items-center ${
+                      isDark ? "text-gray-200" : "text-gray-700"
+                    }`}
+                  >
                     <User size={16} className="mr-2" /> Gender
                   </label>
                   <Field name="gender">
-                    {({ field, form }) => (
+                    {({ field, form }: any) => (
                       <GenderSelector
                         value={field.value}
-                        onChange={(val) => form.setFieldValue("gender", val)}
+                        onChange={(value: string) =>
+                          handleFormikSelectChange(form, "gender", value)
+                        }
                       />
                     )}
                   </Field>
-                  <ErrorMessage
-                    name="gender"
-                    component="div"
-                    className="text-red-500 text-sm mt-1"
-                  />
+                  {touched.gender && errors.gender && (
+                    <div className="text-red-500 text-sm mt-1">{errors.gender}</div>
+                  )}
                 </div>
               </motion.div>
 
-              <motion.div 
-                variants={itemVariants}
-                className="pt-4"
-              >
+              {/* Submit Button */}
+              <motion.div variants={itemVariants} className="pt-4">
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
-                    isSubmitting 
-                      ? "opacity-70 cursor-not-allowed" 
+                    isSubmitting
+                      ? "opacity-70 cursor-not-allowed"
                       : "hover:shadow-lg transform hover:-translate-y-1"
                   } bg-indigo-600 text-white hover:bg-indigo-700`}
-                  disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>Processing...</>
                   ) : (
                     <>
-                      Complete Profile 
+                      Complete Profile
                       <ArrowRight className="h-5 w-5" />
                     </>
                   )}

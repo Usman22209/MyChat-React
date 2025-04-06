@@ -56,8 +56,8 @@ const Login: React.FC = () => {
       dispatch(setUser(response.user));
       toast.success("Login successful!");
     } catch (error: unknown) {
-      console.error("Google Login Error:", error);
-      toast.error("Google login error, please try again.");
+      console.error("Google Login Error:", error.data.message);
+      toast.error(error.data.message || "Google login error, please try again.");
     }
   };
 

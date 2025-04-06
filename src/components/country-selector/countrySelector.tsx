@@ -1,8 +1,27 @@
 import React, { useMemo } from "react";
-import Select from "react-select";
+import Select, {
+  components,
+  GroupBase,
+  OptionProps,
+  SingleValueProps,
+  InputProps,
+  StylesConfig,
+} from "react-select";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
 
-const CountrySelector = ({ onChange, value, className = "" }) => {
+export interface CountryOption {
+  value: string;
+  label: string;
+  code: string;
+}
+
+interface CountrySelectorProps {
+  onChange?: (value: string | null) => void;
+  value?: string;
+  className?: string;
+}
+
+const CountrySelector: React.FC<CountrySelectorProps> = ({ onChange, value, className = "" }) => {
   const { theme } = useTheme();
 
   const countries = useMemo(
@@ -14,7 +33,7 @@ const CountrySelector = ({ onChange, value, className = "" }) => {
     []
   );
 
-  const options = useMemo(
+  const options: CountryOption[] = useMemo(
     () =>
       countries.map((country) => ({
         value: country.code,
@@ -29,27 +48,22 @@ const CountrySelector = ({ onChange, value, className = "" }) => {
     [value, options]
   );
 
-  const FlagOption = ({
-    innerRef,
-    innerProps,
-    label,
-    data,
-    isFocused,
-    isSelected,
-    theme,
-  }) => {
+  // Custom Option component for displaying flag and label
+  const FlagOption: React.FC<
+    OptionProps<CountryOption, false, GroupBase<CountryOption>> & { theme: string }
+  > = ({ innerRef, innerProps, label, data, isFocused, isSelected, theme: themeProp }) => {
     const bgColor =
-      theme === "dark"
+      themeProp === "dark"
         ? isSelected
           ? "bg-gray-600"
           : isFocused
-          ? "bg-gray-700"
-          : "bg-gray-800"
+            ? "bg-gray-700"
+            : "bg-gray-800"
         : isSelected
-        ? "bg-blue-100"
-        : isFocused
-        ? "bg-gray-100"
-        : "bg-white";
+          ? "bg-blue-100"
+          : isFocused
+            ? "bg-gray-100"
+            : "bg-white";
 
     return (
       <div
@@ -69,7 +83,9 @@ const CountrySelector = ({ onChange, value, className = "" }) => {
   };
 
   // Fixed FlagSingleValue component for proper vertical centering
-  const FlagSingleValue = ({ data }) => (
+  const FlagSingleValue: React.FC<
+    SingleValueProps<CountryOption, false, GroupBase<CountryOption>>
+  > = ({ data }) => (
     <div className="flex items-center h-full py-1">
       <img
         src={`https://flagsapi.com/${data.code}/flat/32.png`}
@@ -80,9 +96,10 @@ const CountrySelector = ({ onChange, value, className = "" }) => {
     </div>
   );
 
-  const NoInput = () => null;
+  // NoInput component that renders nothing
+  const NoInput: React.FC<InputProps<CountryOption, false>> = () => null;
 
-  const customStyles = {
+  const customStyles: StylesConfig<CountryOption, false> = {
     control: (base) => ({
       ...base,
       backgroundColor: theme === "dark" ? "#1f2937" : "white",
@@ -134,13 +151,13 @@ const CountrySelector = ({ onChange, value, className = "" }) => {
     }),
   };
 
-  const handleChange = (selected) => {
-    onChange?.(selected?.value);
+  const handleChange = (selected: CountryOption | null) => {
+    onChange?.(selected ? selected.value : null);
   };
 
   return (
     <div className={`relative ${className}`}>
-      <Select
+      <Select<CountryOption, false, GroupBase<CountryOption>>
         options={options}
         value={selectedOption}
         onChange={handleChange}

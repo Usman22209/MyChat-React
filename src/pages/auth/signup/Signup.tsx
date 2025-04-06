@@ -5,9 +5,13 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import ScreenWrapper from "@components/screen-wrapper";
 import { Mail, Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { useAppNavigation } from "@utils/Navigation";
+import { useApi } from "@hooks/useApi";
+import { USER_API } from "@api/user.api";
+import toast from "react-hot-toast";
 
 const Signup: React.FC = () => {
   const navigate = useAppNavigation();
+  const otherUserRequest = useApi(USER_API.getOtherUser, false, false);
   const { signUp, signInWithGoogle } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -38,8 +42,15 @@ const Signup: React.FC = () => {
   });
   const handleGoogleSignUp = async () => {
     try {
-      await signInWithGoogle();
-      navigate("/auth/onboarding");
+      const user = await signInWithGoogle();
+      otherUserRequest
+        .requestCall(user?.uid)
+        .then((res) => {
+          toast.error("user already Exist");
+        })
+        .catch((err) => {
+          navigate("/auth/onboarding");
+        });
     } catch (error) {
       console.error("Google Signup Error:", error);
     }
