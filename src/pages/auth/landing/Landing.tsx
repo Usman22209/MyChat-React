@@ -11,6 +11,7 @@ import FeatureCard from "@components/feature-card";
 import { LandingFeatures } from "@constants/Landing.constant";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import HoverButton from "@components/hover-button/HoverButton";
+import { getAvatarUrl } from "@helper/image.helper";
 import HoverbuttonPrimary from "@components/hover-button/HoverButtonPrimary";
 const logos = [logo1, logo2, logo3, logo4];
 
