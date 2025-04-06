@@ -12,11 +12,11 @@ interface GenderOption {
 }
 
 interface GenderSelectorProps {
-  value: string;
+  value?: string;
   onChange: (genderId: string) => void;
 }
 
-const GenderSelector: React.FC<GenderSelectorProps> = ({ value, onChange }) => {
+const GenderSelector: React.FC<GenderSelectorProps> = ({ value = "", onChange }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -77,10 +77,10 @@ const GenderSelector: React.FC<GenderSelectorProps> = ({ value, onChange }) => {
         Choose Your Gender
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {genderOptions.map((gender) => (
           <button
-            type="button" // Add this attribute to prevent form submission
+            type="button"
             key={gender.id}
             onClick={() => onChange(gender.id)}
             className={`

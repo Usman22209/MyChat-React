@@ -29,15 +29,16 @@ const Signup: React.FC = () => {
         .oneOf([Yup.ref("password")], "Passwords must match")
         .required("Required"),
     }),
-    onSubmit: async (values, { setSubmitting, setErrors }) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
         await signUp(values.email, values.password);
-        alert("Signup successful! Please check your email to verify your account.");
+        toast.success("Signup successful! Please verify your email.");
         navigate("/auth/onboarding");
-      } catch (error: unknown) {
-        setErrors({ email: error as string });
+      } catch (error: any) {
+        toast.error(error.message || "Something went wrong");
+      } finally {
+        setSubmitting(false);
       }
-      setSubmitting(false);
     },
   });
   const handleGoogleSignUp = async () => {

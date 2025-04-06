@@ -16,13 +16,18 @@ function nameToIndex(str: string, max: number): number {
 }
 
 export function getAvatarUrl(
-  firstName: string,
-  lastName: string,
+  fullName: string,
   options: AvatarOptions = {}
 ): string {
+  // Trim the full name and split into words
+  const nameParts = fullName.trim().split(/\s+/);
+  const firstName = nameParts[0] || "";
+  // If there is more than one word, use the rest as the last name; otherwise, duplicate the first name.
+  const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : firstName;
+
   const baseUrl = 'https://avatar.iran.liara.run/username';
   // Manually join names with a plus sign.
-  const fullName = `${firstName.trim()}+${lastName.trim()}`;
+  const username = `${firstName}+${lastName}`;
   
   // Use concatenated first and last names for a consistent index.
   const index = nameToIndex(`${firstName}${lastName}`, bgColorPalette.length);
@@ -30,7 +35,7 @@ export function getAvatarUrl(
   const textColor = options.color || 'ffffff';
 
   const params = new URLSearchParams({
-    username: fullName,
+    username,
     background: bgColor,
     color: textColor,
   });
@@ -46,6 +51,6 @@ export function getAvatarUrl(
 }
 
 // Example usage:
-const avatarUrl = getAvatarUrl('Sana', 'Khan');
-console.log(avatarUrl);
-// Expected Output: https://avatar.iran.liara.run/username?username=Sana+Khan&background=FF9800&color=ffffff
+// const avatarUrl = getAvatarUrl('Sana Khan');
+// console.log(avatarUrl);
+// Expected Output: https://avatar.iran.liara.run/username?username=Sana+Khan&background=...&color=ffffff

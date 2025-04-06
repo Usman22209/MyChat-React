@@ -16,16 +16,17 @@ export const signUp = async (email: string, password: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     await sendEmailVerification(user);
-    console.log("Verification email sent");
     const token = await user.getIdToken();
-    console.log(token);
-
     store.dispatch(setToken(token));
-
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Signup Error:", error);
-    throw error;
+
+    if (error.code === "auth/email-already-in-use") {
+      throw new Error("Email is already in use. Please try logging in or use a different email.");
+    }
+
+    throw new Error(error.message || "Signup failed. Please try again.");
   }
 };
 

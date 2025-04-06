@@ -42,8 +42,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   const reduxToken = useSelector(getToken);
   const reduxUser = useSelector(getUser);
-  console.log(reduxUser);
-  
+
   const user = reduxUser ? reduxUser : null;
   const isLoggedIn = reduxUser !== null;
   const token = reduxToken || "";

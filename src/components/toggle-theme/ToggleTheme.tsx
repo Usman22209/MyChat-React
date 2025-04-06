@@ -27,7 +27,7 @@ const ToggleSwitch: React.FC<{ checked: boolean; onChange: () => void }> = ({
 const ThemeToggle: React.FC<ThemeToggleProps> = ({ containerClassName }) => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div className={containerClassName}>
+    <div className="px-3 py-1 flex items-center space-x-2 border-l border-gray-200 dark:border-gray-700 ml-2">
       <Sun className="h-4 w-4 text-gray-500 dark:text-gray-400" />
       <ToggleSwitch checked={theme === "dark"} onChange={toggleTheme} />
       <Moon className="h-4 w-4 text-gray-500 dark:text-gray-400" />

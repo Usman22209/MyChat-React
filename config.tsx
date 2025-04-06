@@ -7,5 +7,8 @@ export const API_CONFIG = {
   },
   USER:{
     getOtherUser:(uid:string)=>`user/${uid}`,
+  },
+  UPLOAD:{
+    upload: "upload",
   }
 };

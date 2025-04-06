@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MessageSquare, Bell, Settings, Search } from "lucide-react";
+import { MessageSquare, Bell, Settings, Search, Home, User, LogOut, SunMoon } from "lucide-react";
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import { motion, AnimatePresence } from "framer-motion";
 import Switch from "@components/hamburger/Hamburger";
@@ -9,85 +9,167 @@ import { useTheme } from "@providers/theme-provider/ThemeProvider";
 import ThemeToggle from "@components/toggle-theme";
 
 const MainNavbar: React.FC = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
 
+  const sidebarBg = theme === "dark" ? "bg-gray-900" : "bg-white";
+  const textColor = theme === "dark" ? "text-gray-200" : "text-gray-700";
+  const hoverBg = theme === "dark" ? "bg-gray-800" : "bg-gray-100";
+  const borderColor = theme === "dark" ? "border-gray-800" : "border-gray-200";
+  const subtleText = theme === "dark" ? "text-gray-400" : "text-gray-500";
+  const iconColor = theme === "dark" ? "text-indigo-400" : "text-indigo-600";
+
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-2 sticky top-0 z-50">
+    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-2 sticky top-0 z-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 md:h-16">
-          <div className="flex-shrink-0 flex items-center space-x-2">
+          {/* Desktop View */}
+          <div className="hidden md:flex flex-shrink-0 items-center space-x-2">
             <img src={theme === "dark" ? logoDark : logoLight} alt="Logo" className="h-16 w-auto" />
-            <span className="text-gray-900 dark:text-white font-bold text-lg md:text-xl">
+            <span className="text-gray-900 dark:text-white font-bold text-lg md:text-xl transition-colors duration-300">
               MyChat
             </span>
           </div>
+
           <div className="hidden md:flex items-center space-x-4">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search..."
-                className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
+                className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64 transition-colors duration-300"
               />
-              <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300" />
             </div>
-            <button className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200">
+            <button className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-300">
               <Bell className="h-5 w-5 md:h-6 md:w-6" />
             </button>
-            <button className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200">
-              <Settings className="h-5 w-5 md:h-6 md:w-6" />
-            </button>
-            <Logout onLogout={logout} />
-            <ThemeToggle containerClassName="px-3 py-1 flex items-center space-x-2 border-l border-gray-200 dark:border-gray-700 ml-2" />
-          </div>
-          <div className="md:hidden flex items-center space-x-3">
-            <ThemeToggle containerClassName="flex items-center space-x-1" />
-            <div className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-200">
-              <Switch checked={isOpen} onChange={() => setIsOpen(!isOpen)} />
+            <div className="relative group">
+              <button className="flex items-center justify-center overflow-hidden ring-2 ring-indigo-500 rounded-full h-8 w-8 md:h-9 md:w-9 hover:ring-indigo-600 transition-all duration-300">
+                <img src={user.profilePic} alt="Profile" className="object-cover h-full w-full" />
+              </button>
             </div>
+            <Logout onLogout={logout} />
+            <ThemeToggle containerClassName="px-3 py-1 flex items-center space-x-2 border-l border-gray-200 dark:border-gray-700 ml-2 transition-colors duration-300" />
+          </div>
+
+          {/* Mobile View */}
+          <div className="md:hidden flex items-center justify-between w-full">
+            {/* Left: Hamburger Menu */}
+            <button className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-300">
+              <Switch checked={isOpen} onChange={() => setIsOpen(!isOpen)} />
+            </button>
+
+            {/* Center: Logo and App Name */}
+            <div className="flex items-center space-x-2 absolute left-1/2 transform -translate-x-1/2">
+              <img
+                src={theme === "dark" ? logoDark : logoLight}
+                alt="Logo"
+                className="h-8 w-auto"
+              />
+              <span className="text-gray-900 dark:text-white font-bold text-lg transition-colors duration-300">
+                MyChat
+              </span>
+            </div>
+
+            {/* Empty div to balance the layout */}
+            <div className="w-10"></div>
           </div>
         </div>
+
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="md:hidden py-4 mt-2"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed inset-0 z-50 md:hidden"
             >
-              <div className="flex flex-col space-y-4">
-                <div className="relative px-2">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                  <Search className="absolute right-4 top-3.5 h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <motion.div
+                className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              <div
+                className={`absolute inset-y-0 left-0 w-[80%] ${sidebarBg} flex flex-col h-full shadow-lg transition-colors duration-300`}
+              >
+                <div
+                  className={`flex flex-col items-center p-6 border-b ${borderColor} transition-colors duration-300`}
+                >
+                  <div className="rounded-full overflow-hidden h-16 w-16 ring-2 ring-indigo-500 mb-2 transition-colors duration-300">
+                    <img
+                      src={user.profilePic}
+                      alt="Profile"
+                      className="object-cover h-full w-full"
+                    />
+                  </div>
+                  <h2
+                    className={`${theme === "dark" ? "text-white" : "text-gray-900"} font-bold text-lg transition-colors duration-300`}
+                  >
+                    {user.name || "User"}
+                  </h2>
+                  <p className={`${subtleText} transition-colors duration-300`}>{user.email}</p>
                 </div>
-                <div className="grid grid-cols-1 gap-3 px-2">
-                  <button className="flex items-center space-x-3 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200">
-                    <Bell className="h-5 w-5" />
-                    <span className="font-medium">Notifications</span>
-                  </button>
-                  <button className="flex items-center space-x-3 px-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200">
-                    <Settings className="h-5 w-5" />
-                    <span className="font-medium">Settings</span>
-                  </button>
+
+                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="w-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-300"
+                    />
+                    <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-500 dark:text-gray-400 transition-colors duration-300" />
+                  </div>
                 </div>
-                <div className="px-2 mt-2">
+
+                <div className="flex-1 overflow-y-auto py-4">
+                  <div className="px-4 space-y-1">
+                    <button
+                      className={`flex items-center w-full py-3 px-4 ${textColor} hover:${hoverBg} rounded-lg transition-all duration-300`}
+                    >
+                      <Home
+                        className={`h-5 w-5 mr-3 ${iconColor} transition-colors duration-300`}
+                      />
+                      <span>Home</span>
+                    </button>
+
+                    <button
+                      className={`flex items-center w-full py-3 px-4 ${textColor} hover:${hoverBg} rounded-lg transition-all duration-300`}
+                    >
+                      <Bell
+                        className={`h-5 w-5 mr-3 ${iconColor} transition-colors duration-300`}
+                      />
+                      <span>Notifications</span>
+                    </button>
+
+                    <div
+                      className={`flex items-center w-full py-3 px-4 ${textColor} hover:${hoverBg} rounded-lg transition-all duration-300`}
+                    >
+                      <SunMoon
+                        className={`h-5 w-5 mr-3 ${iconColor} transition-colors duration-300`}
+                      />
+                      <span>Theme</span>
+                      <div className="ml-auto">
+                        <ThemeToggle containerClassName="p-0" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`p-4 border-t ${borderColor} transition-colors duration-300`}>
                   <button
                     onClick={logout}
-                    className="w-full bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center"
+                    className={`flex items-center w-full py-3 px-4 ${textColor} hover:${hoverBg} rounded-lg transition-all duration-300`}
                   >
-                    <svg className="h-5 w-5 mr-2" viewBox="0 0 512 512">
-                      <path
-                        fill="currentColor"
-                        d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
-                      />
-                    </svg>
-                    <span className="font-medium">Logout</span>
+                    <LogOut
+                      className={`h-5 w-5 mr-3 ${iconColor} transition-colors duration-300`}
+                    />
+                    <span>Log Out</span>
                   </button>
                 </div>
               </div>

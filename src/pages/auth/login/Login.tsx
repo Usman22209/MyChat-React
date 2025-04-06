@@ -32,7 +32,6 @@ const Login: React.FC = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const userCredential = await login(values.email, values.password, rememberMe);
-
         const response = await loginRequest.requestCall({ uid: userCredential.uid });
         dispatch(setUser(response.user));
         toast.success("Login successful!");
