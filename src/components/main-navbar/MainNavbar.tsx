@@ -13,12 +13,13 @@ import {
 import { useAuth } from "@providers/auth-provider/AuthProvider";
 import { motion, AnimatePresence } from "framer-motion";
 import Switch from "@components/hamburger/Hamburger";
-import Logout from "@components/Logout";
 import { logoLight, logoDark } from "@assets/img";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
 import ThemeToggle from "@components/toggle-theme";
-
+import { setIsOpened } from "@redux/slices/app.slice";
+import { useDispatch } from "react-redux";
 const MainNavbar: React.FC = () => {
+  const dispatch = useDispatch();
   const { logout, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -128,7 +129,13 @@ const MainNavbar: React.FC = () => {
           <div className="md:hidden flex items-center justify-between w-full">
             {/* Left: Hamburger Menu */}
             <button className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-all duration-300">
-              <Switch checked={isOpen} onChange={() => setIsOpen(!isOpen)} />
+              <Switch
+                checked={isOpen}
+                onChange={() => {
+                  setIsOpen(!isOpen);
+                  dispatch(setIsOpened(!isOpen));
+                }}
+              />
             </button>
 
             {/* Center: Logo and App Name */}
@@ -159,7 +166,10 @@ const MainNavbar: React.FC = () => {
             >
               <motion.div
                 className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  dispatch(setIsOpened(false));
+                }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

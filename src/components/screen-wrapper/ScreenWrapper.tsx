@@ -5,7 +5,10 @@ import { useAuth } from "@providers/auth-provider/AuthProvider";
 import Footer from "@components/footer";
 import Loader from "@components/loader";
 import { Toaster } from "react-hot-toast";
+import { getIsOpened } from "@redux/slices/app.slice";
 import { useTheme } from "@providers/theme-provider/ThemeProvider";
+import { useSelector } from "react-redux";
+
 interface ScreenWrapperProps {
   children: React.ReactNode;
   className?: string;
@@ -36,8 +39,11 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     centered = true,
     onMount,
   }) => {
-    const { loading: authLoading, isLoggedIn, firebaseUser,token } = useAuth();
-    const {theme}=useTheme();
+    const { loading: authLoading, isLoggedIn, firebaseUser, token } = useAuth();
+    const { theme } = useTheme();
+    const isOpened = useSelector(getIsOpened);
+    console.log(token);
+    
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -59,8 +65,10 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
 
     return (
       <div
-        className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 
-                      transition-all duration-300 text-gray-900 dark:text-gray-100"
+        className={`min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800
+                transition-all duration-300 text-gray-900 dark:text-gray-100 ${
+                  isOpened ? "md:ml-0 ml-[80vw]" : "ml-0"
+                }`}
       >
         <Toaster position="top-right" reverseOrder={false} />
         {!authLoading && (isLoggedIn ? <MainNavbar /> : <AuthNavbar />)}
@@ -69,7 +77,9 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
         ) : (
           <>
             <div
-              className={`w-full flex-grow  mx-auto ${padding} ${maxWidthClass} ${centered ? "flex flex-col items-center" : ""} ${className}`}
+              className={`w-full flex-grow mx-auto ${padding} ${maxWidthClass} ${
+                centered ? "flex flex-col items-center" : ""
+              } ${className}`}
             >
               {children}
             </div>
