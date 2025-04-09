@@ -15,6 +15,7 @@ interface ScreenWrapperProps {
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
   padding?: string;
   centered?: boolean;
+  footer?: boolean;
   onMount?: () => void;
 }
 
@@ -37,13 +38,14 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
     maxWidth = "lg",
     padding = "p-4 md:p-6",
     centered = true,
+    footer = true,
     onMount,
   }) => {
     const { loading: authLoading, isLoggedIn, firebaseUser, token } = useAuth();
     const { theme } = useTheme();
     const isOpened = useSelector(getIsOpened);
     console.log(token);
-    
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -83,7 +85,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
             >
               {children}
             </div>
-            <Footer />
+            {footer && <Footer />}
           </>
         )}
       </div>
