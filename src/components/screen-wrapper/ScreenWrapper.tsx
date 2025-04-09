@@ -67,7 +67,7 @@ const ScreenWrapper: React.FC<ScreenWrapperProps> = React.memo(
       <div
         className={`min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800
                 transition-all duration-300 text-gray-900 dark:text-gray-100 ${
-                  isOpened ? "md:ml-0 ml-[80vw]" : "ml-0"
+                  isOpened ? "md:ml-0 ml-[10vw]" : "ml-0"
                 }`}
       >
         <Toaster position="top-right" reverseOrder={false} />

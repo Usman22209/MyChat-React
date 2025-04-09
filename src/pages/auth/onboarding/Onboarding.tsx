@@ -54,9 +54,7 @@ const Onboarding: React.FC = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const [profilePic, setProfilePic] = useState<string>(
-    getAvatarUrl(user?.displayName || "No Name")
-  );
+  const [profilePic, setProfilePic] = useState<string>(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -84,7 +82,6 @@ const Onboarding: React.FC = () => {
       }
     } catch (error: any) {
       console.error("Upload failed:", error.response?.data || error.message);
-      setProfilePic(getAvatarUrl(user?.displayName || "No Name"));
     } finally {
       setUploading(false);
     }
@@ -96,15 +93,15 @@ const Onboarding: React.FC = () => {
     try {
       const fullName = `${values.firstName} ${values.lastName}`.trim();
 
-    const userData = {
-      uid: user.uid,
+      const userData = {
+        uid: user.uid,
         name: fullName,
-      email: user.email || "No Email",
-        profilePic: profilePic,
-      bio: values.bio,
-      gender: values.gender,
-      country: values.country,
-    };
+        email: user.email || "No Email",
+        profilePic: profilePic || getAvatarUrl(fullName),
+        bio: values.bio,
+        gender: values.gender,
+        country: values.country,
+      };
 
       const signupResponse = await signupRequest.requestCall(userData);
       dispatch(setUser(signupResponse.user));
@@ -112,7 +109,7 @@ const Onboarding: React.FC = () => {
     } catch (error: any) {
       console.error("Registration failed:", error.response?.data?.message || error.message);
     } finally {
-      setSubmitting(false);a
+      setSubmitting(false);
     }
   };
 
@@ -164,7 +161,7 @@ const Onboarding: React.FC = () => {
           >
             <div className="relative">
               <img
-                src={profilePic}
+                src={profilePic || getAvatarUrl(`${firstName} ${lastName}`)}  
                 alt="User Avatar"
                 className="h-16 w-16 sm:h-12 sm:w-12 rounded-full object-cover"
               />
@@ -205,7 +202,7 @@ const Onboarding: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                   <div className="relative w-full">
                     <label
-                      className={`block text-sm font-medium mb-2 flex items-center ${
+                      className={` text-sm font-medium mb-2 flex items-center ${
                         isDark ? "text-gray-200" : "text-gray-700"
                       }`}
                     >
@@ -227,7 +224,7 @@ const Onboarding: React.FC = () => {
 
                   <div className="relative w-full">
                     <label
-                      className={`block text-sm font-medium mb-2 flex items-center ${
+                      className={` text-sm font-medium mb-2 flex items-center ${
                         isDark ? "text-gray-200" : "text-gray-700"
                       }`}
                     >
@@ -251,7 +248,7 @@ const Onboarding: React.FC = () => {
                 {/* Bio */}
                 <div className="relative w-full">
                   <label
-                    className={`block text-sm font-medium mb-2 flex items-center ${
+                    className={` text-sm font-medium mb-2 flex items-center ${
                       isDark ? "text-gray-200" : "text-gray-700"
                     }`}
                   >

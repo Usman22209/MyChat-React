@@ -52,7 +52,11 @@ const MainNavbar: React.FC = () => {
     // Add edit profile functionality here
     console.log("Edit profile clicked");
   };
-
+  const handleLogout = () => {
+    setIsOpen(false);
+    dispatch(setIsOpened(false));
+    logout();
+  };
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-2 sticky top-0 z-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,7 +96,7 @@ const MainNavbar: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 ${dropdownBg} border ${borderColor} z-50`}
+                    className={`absolute right-0 mt-2 w-56 rounded-lg shadow-lg py-1 ${dropdownBg} border ${borderColor} z-50`}
                   >
                     <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                       <p
@@ -206,7 +210,7 @@ const MainNavbar: React.FC = () => {
                       Edit Profile
                     </button>
                     <button
-                      onClick={logout}
+                      onClick={handleLogout}
                       className={`flex items-center justify-center flex-1 py-2 px-3 ${textColor} bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm transition-all duration-300`}
                     >
                       <LogOut className="h-4 w-4 mr-1" />

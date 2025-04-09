@@ -20,7 +20,7 @@ const StyledWrapper = styled.div<{ themeMode: string }>`
   button {
     font-family: inherit;
     display: inline-block;
-    width: 8em;
+    width: 9em;
     height: 3em;
     line-height: 2.5em;
     position: relative;

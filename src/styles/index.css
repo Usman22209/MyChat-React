@@ -21,6 +21,103 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-webkit-reveal {
   display: none;
 }
-body{
+body {
   color: black;
+}
+/* Custom scrollbar styles for the entire application */
+
+/* For Webkit browsers (Chrome, Safari, newer versions of Opera) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1; /* Indigo-500 */
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5; /* Indigo-600 */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #f1f1f1;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: #1f2937; /* Gray-800 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #818cf8; /* Indigo-400 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6366f1; /* Indigo-500 */
+  }
+
+  * {
+    scrollbar-color: #818cf8 #1f2937;
+  }
+}
+
+/* Specific styling for chat container scrollbar */
+.chat-container::-webkit-scrollbar,
+[class*="chat"]::-webkit-scrollbar,
+[id*="chat"]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-thumb,
+[class*="chat"]::-webkit-scrollbar-thumb,
+[id*="chat"]::-webkit-scrollbar-thumb {
+  background: #818cf8; /* Indigo-400 - softer for chat areas */
+  border-radius: 6px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover,
+[class*="chat"]::-webkit-scrollbar-thumb:hover,
+[id*="chat"]::-webkit-scrollbar-thumb:hover {
+  background: #6366f1; /* Indigo-500 */
+}
+
+/* Animation for scrollbar when scrolling happens */
+@keyframes fadeScrollbar {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #4f46e5; /* Indigo-600 */
+  animation: fadeScrollbar 0.3s ease forwards;
+}
+
+/* For elements that should have a more subtle scrollbar */
+.subtle-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.subtle-scroll::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.6); /* Semi-transparent indigo */
+}
+
+/* Firefox subtle scrollbar */
+.subtle-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.6) transparent;
 }
