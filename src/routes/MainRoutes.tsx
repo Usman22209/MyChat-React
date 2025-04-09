@@ -1,7 +1,7 @@
 // src/routes/MainRoutes.tsx
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "@pages/auth/landing";
-import Onboarding from "@pages/auth/onboarding";
+import ChatScreen from "@pages/chat/Chat/chat";
 // import ChatPage from "@pages/public/chat/Chat";
 // import DashboardPage from "@pages/public/dashboard/Dashboard";
 // import ProfilePage from "@pages/public/profile/Profile";
@@ -10,7 +10,7 @@ import Onboarding from "@pages/auth/onboarding";
 const MainRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<ChatScreen />} />
 
       {/* <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/profile" element={<ProfilePage />} />
